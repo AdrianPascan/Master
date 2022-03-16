@@ -1,0 +1,10 @@
+The client sends the request to the intermediate (the servlet). 
+The request is similar to a regular request to the end server except that it has a 'commission' header element that 
+would tell the intermediate whether it should apply ('yes') or not (anything but 'yes') a -1 commission to processing
+the difference (the calculator server is used for HI, Health Insurance, payments).
+The intermediate gets the request, extracts the SOAP message from the input stream of the request, processes the header
+element 'commission', then the element is detached and the message is passed through a SOAP connection to the end server.
+After getting the end server response, the intermediate attaches a new 'commissioned' header element having as values 
+'yes' or 'no' depending on the value of 'commission'. If the difference should be commissioned, the result of the 
+difference is decremented in the body. The updated message is passed as a response to the client that processes it as
+a usual end server response.
