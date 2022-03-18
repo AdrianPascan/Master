@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<jaxws:endpoint xmlns:tns="http://ws/" id="calculator"
+		implementor="ws.CalculatorImpl"
+		wsdlLocation="wsdl/calculatorimpl.wsdl"
+		endpointName="tns:CalculatorImplPort"
+		serviceName="tns:CalculatorImplService" address="/CalculatorImplPort">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+		<jaxws:inInterceptors>
+		  <bean  class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		    <constructor-arg>
+		      <map>
+		        <entry key="action" value="UsernameToken"/>
+		        <entry key="passwordType" value="PasswordText"/>
+		        <entry key="passwordCallbackClass" value="ws.PasswordCallback"/>
+		      </map>
+		    </constructor-arg>
+		  </bean>
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+</beans>
