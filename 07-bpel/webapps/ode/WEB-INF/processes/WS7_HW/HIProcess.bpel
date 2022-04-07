@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<process name="IdOrder"
+    targetNamespace="http://id/bpel" 
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://id/bpel"
+    xmlns:tnswsdl="http://id/wsdl"
+    xmlns:tnsxsd="http://id/xsd"
+    xmlns:tnsx="http://ws/"
+    xmlns:tnsy="http://ws2/"
+    queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"
+    expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0">
+
+  <import location="HIProcess.wsdl"
+      namespace="http://id/wsdl"
+      importType="http://schemas.xmlsoap.org/wsdl/" />
+
+  <partnerLinks>
+    <partnerLink name="IdOrderLink" 
+        partnerLinkType="tnswsdl:IdOrderLinkType" 
+        myRole="IdOrderServiceRole" />
+    <partnerLink name="CalculatorLink" 
+        partnerLinkType="tnswsdl:CalculatorLinkType" 
+        myRole="CalculatorClientRole"
+        partnerRole="CalculatorServiceRole" />
+    <partnerLink name="IdPaymentLink" 
+        partnerLinkType="tnswsdl:IdPaymentLinkType" 
+        myRole="IdPaymentClientRole"
+        partnerRole="IdPaymentServiceRole" />
+  </partnerLinks>
+  
+  <variables>
+    <variable name="inputMessage" element="tnswsdl:IdOrderInputMessage" />
+    <variable name="id" type="xsd:string" />
+    <variable name="amount" element="xsd:int" />
+    <variable name="outputMessage" messageType="tnswsdl:IdOrderOutputMessage" />
+    <variable name="subtractInput" messageType="tnsx:subtract" />
+    <variable name="subtractOutput" messageType="tnsx:subtractResponse" />
+    <variable name="newAllowance" element="xsd:int" />
+    <variable name="getAllowanceInput" messageType="tnsy:getAllowanceForId" />
+    <variable name="getAllowanceOutput" messageType="tnsy:getAllowanceForIdResponse" />
+    <variable name="allowance" element="xsd:int" />
+    <variable name="setAllowanceInput" messageType="tnsy:setAllowanceForId" />
+    <variable name="setAllowanceOutput" messageType="tnsy:setAllowanceForIdResponse" />
+    <variable name="isNewAllowanceSet" type="xsd:boolean" />
+  </variables>
+  
+  <flow>
+    <sequence>
+      <receive name="ReceiveIdOrderInput"
+          partnerLink="IdOrderLink"
+          portType="tnswsdl:IdOrderPortType"
+          operation="payWithIdOperation"
+          variable="inputMessage"
+          createInstance="yes" />
+      
+      <assign name="ParseIdOrderInput">
+        <copy>
+          <from variable="inputMessage" part="idParam"/>
+          <to variable="id"/>
+        </copy>
+        <copy>
+          <from variable="inputMessage" part="allowanceParam"/>
+          <to variable="inputAllowance"/>
+        </copy>
+      </assign>
+      
+      <assign name="InitIdPaymentGetAllowanceForId">
+        <copy>
+          <from variable="id" />
+          <to variable="getAllowanceInput" part="params" />
+        </copy>
+      </assign>
+
+      <invoke name="InvokeIdPaymentGetAllowanceForId"
+          partnerLink="IdPaymentLink"
+          operation="getAllowanceForIdOperation"
+          inputVariable="getAllowanceInput"
+          outputVariable="getAllowanceOutput" />
+
+      <assign name="ParseGetAllowanceOutput">
+        <copy>
+          <from variable="getAllowanceOutput" part="params" />
+          <to variable="allowance" />
+        </copy>
+      </assign>
+
+      <if>
+        <condition>$allowance &lt; 0</condition>
+          <assign>
+            <copy>
+              <from expression="Invalid HI for id." />
+              <to variable="outputMessage" part="params" />
+            </copy>
+          </assign>
+        <else>
+          <assign name="InitCalculatorSubtract">
+            <copy>
+              <from variable="allowance" />
+              <to variable="subtractInput" part="subtrahendParam" />
+            </copy>
+            <copy>
+              <from variable="amount" />
+              <to variable="subtractInput" part="minuendParam" />
+            </copy>
+          </assign>
+
+          <invoke name="InvokeCalculatorSubtract"
+              partnerLink="CalculatorLink"
+              operation="subtractOperation"
+              inputVariable="subtractInput"
+              outputVariable="subtractOutput" />
+
+          <assign name="ParseSubtractOutput">
+            <copy>
+              <from variable="subtractOutput" part="params" />
+              <to variable="newAllowance" />
+            </copy>
+          </assign>
+          
+          <if>
+            <condition>$newAllowance &lt; 0</condition>
+              <assign>
+                <copy>
+                  <from expression="Insufficient allowance for id." />
+                  <to variable="outputMessage" part="params" />
+                </copy>
+              </assign>
+            <else>
+              <assign name="InitIdPaymentSetAllowanceForId">
+                <copy>
+                  <from variable="id" />
+                  <to variable="setAllowanceInput" part="idParam" />
+                </copy>
+                <copy>
+                  <from variable="newAllowance" />
+                  <to variable="setAllowanceInput" part="allowanceParam" />
+                </copy>
+              </assign>
+
+              <invoke name="InvokeIdPaymentSetAllowanceForId"
+                  partnerLink="IdPaymentLink"
+                  operation="setAllowanceForIdOperation"
+                  inputVariable="setAllowanceInput"
+                  outputVariable="setAllowanceOutput" />
+
+              <assign name="ParseSetAllowanceOutput">
+                <copy>
+                  <from variable="setAllowanceOutput" part="params" />
+                  <to variable="isNewAllowanceSet" />
+                </copy>
+              </assign>
+
+              <if>
+                <condition>$isNewAllowanceSet</condition>
+                  <assign>
+                    <copy>
+                      <from expression="Successful payment for id." />
+                      <to variable="outputMessage" part="params" />
+                    </copy>
+                  </assign>
+                <else>
+                  <assign>
+                    <copy>
+                      <from expression="Unknown error..." />
+                      <to variable="outputMessage" part="params" />
+                    </copy>
+                  </assign>                
+                </else>
+              </if>
+            </else>
+          </if>
+        </else>
+      </if>
+    
+      <reply name="ReplyIdOrderOutput"  
+          partnerLink="IdOrderLink"
+          portType="tnswsdl:IdOrderPortType" 
+          operation="payWithIdOperation"
+          variable="outputMessage" />
+    </sequence>
+  </flow>
+</process>
