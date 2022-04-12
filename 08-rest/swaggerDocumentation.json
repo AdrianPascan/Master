@@ -1,0 +1,184 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is an implementation of the Insurance web servcice for the 08-rest WS tutorial.",
+    "version": "1.0.0",
+    "title": "NSWI145 Insurance WS",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/rest",
+  "tags": [
+    {
+      "name": "default",
+      "description": ""
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/insurances": {
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Retrieve the list of insurances",
+        "description": "",
+        "operationId": "getInsurances",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the list of insurances"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Add a new insurance",
+        "description": "",
+        "operationId": "postInsurance",
+        "consumes": [
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "insuranceElem",
+            "description": "Insurance object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Insurance"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully added insurance"
+          },
+          "409": {
+            "description": "Already existing insurance for ID or allowance smaller than 0"
+          }
+        }
+      }
+    },
+    "/insurances/{insuranceId}": {
+      "parameters": [
+        {
+          "name": "insuranceId",
+          "in": "path",
+          "description": "ID of insurance",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Retrieve insurance having ID",
+        "description": "",
+        "operationId": "getInsurance",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the insurance"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Update insurance having ID",
+        "description": "",
+        "operationId": "putInsurance",
+        "consumes": [
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "insuranceElem",
+            "description": "Insurance object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Insurance"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated insurance"
+          },
+          "409": {
+            "description": "No insurance for ID or path id and body id do not match or allowance smaller than 0"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Delete insurance having ID",
+        "description": "",
+        "operationId": "deleteInsurance",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the insurance"
+          },
+          "409": {
+            "description": "No insurance for ID"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Insurance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "[A-Za-Z]{2,2}[0-9]{6,6}"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "allowance": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
