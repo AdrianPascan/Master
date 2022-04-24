@@ -1,0 +1,70 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix cis: <http://dati.beniculturali.it/cultural-ON/cultural-ON.owl> .
+@prefix common: <http://www.w3.org/2007/uwa/context/deliverycontext.owl> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix identity: <http://www.identity.org/ontologies/identity.owl> .
+@prefix lgdo: <http://linkedgeodata.org/ontology> .
+@prefix pay: <http://reference.data.gov.uk/def/payment#> .
+@prefix schema: <http://schema.org/> .
+
+@prefix my: <https://my.org/> .
+
+cis:Card a rdfs:Class .
+
+my:IdCard a rdfs:Class ;
+    rdfs:subClassOf cis:Card .
+identity:pin a rdf:Property ;
+    rdfs:domain my:IdCard .
+
+my:HICard a rdfs:Class ;
+    rdfs:subClassOf cis:Card .
+common:id a rdf:Property ;
+    rdfs:domain my:HICard .
+
+schema:Person a rdfs:Class .
+foaf:givenName a rdf:Property ;
+    rdfs:domain schema:Person .
+foaf:familyName a rdf:Property ;
+    rdfs:domain schema:Person .
+
+schema:Employee a rdfs:Class .
+
+schema:Customer a rdfs:Class .
+my:card a rdf:Property ;
+    rdfs:domain schema:Customer ;
+    rdfs:range cis:Card .
+
+my:card a rdf:Property ;
+    rdfs:domain schema:Customer .
+
+pay:Payment a rdfs:Class .
+schema:amount a rdf:Property ;
+    rdfs:domain pay:Payment .
+identity:timestamp a rdf:Property ;
+    rdfs:domain pay:Payment .
+my:successful a rdf:Property ;
+    rdfs:domain pay:Payment .
+
+my:IdPayment a rdfs:Class ;
+    rdfs:subClassOf pay:Payment .
+my:idCard a rdf:Property ;
+    rdfs:domain my:IdPayment .
+
+my:HIPayment a rdfs:Class ;
+    rdfs:subClassOf pay:Payment .
+my:hiCard a rdf:Property ;
+    rdfs:domain my:HIPayment .
+
+lgdo:Insurance a rdfs:Class .
+common:active a rdf:Property ;
+    rdfs:domain lgdo:Insurance .
+my:allowance a rdf:Property ;
+    rdfs:domain lgdo:Insurance .
+my:customer a rdf:Property ;
+    rdfs:domain lgdo:Insurance ;
+    rdfs:range schema:Customer .
+my:customer a rdf:Property ;
+    rdfs:domain lgdo:Insurance ;
+    rdfs:range pay:Payment .

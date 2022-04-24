@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<insurances>
+    <insurance>
+        <active>false</active>
+        <allowance>0</allowance>
+        <id>WW012345</id>
+    </insurance>
+    <insurance>
+        <active>true</active>
+        <allowance>1000</allowance>
+        <id>YY012345</id>
+    </insurance>
+    <insurance>
+        <active>false</active>
+        <allowance>100</allowance>
+        <id>XX012345</id>
+    </insurance>
+    <insurance>
+        <active>true</active>
+        <allowance>9999</allowance>
+        <id>ZZ012345</id>
+    </insurance>
+</insurances>
