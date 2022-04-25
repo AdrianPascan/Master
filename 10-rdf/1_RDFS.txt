@@ -11,60 +11,107 @@
 
 @prefix my: <https://my.org/> .
 
-cis:Card a rdfs:Class .
+cis:Card a rdfs:Class ;
+    rdfs:label "Base health insurance card"@en ;
+    rdfs:comment "Each health insurance card is a base health insurance card"@en .
 
 my:IdCard a rdfs:Class ;
-    rdfs:subClassOf cis:Card .
+    rdfs:subClassOf cis:Card ;
+    rdfs:label "Id health insurance card"@en ;
+    rdfs:comment "Health insurance card linked to a customer id card"@en .
 identity:pin a rdf:Property ;
-    rdfs:domain my:IdCard .
+    rdfs:domain my:IdCard ;
+    rdfs:label "Personal Identification Number (PIN)"@en ;
+    rdfs:comment "Personal Identification Number (PIN) of a customer that identifies his/her id card"@en .
 
 my:HICard a rdfs:Class ;
-    rdfs:subClassOf cis:Card .
+    rdfs:subClassOf cis:Card ;
+    rdfs:label "Institutional health insurance card"@en ;
+    rdfs:comment "Health insurance card linked to a customer institutional identity"@en .
 common:id a rdf:Property ;
-    rdfs:domain my:HICard .
+    rdfs:domain my:HICard ;
+    rdfs:label "Identifier (ID)"@en ;
+    rdfs:comment "Identifier (ID) of a customer that identifies his/her institutional identity"@en .
 
-schema:Person a rdfs:Class .
+schema:Person a rdfs:Class ;
+    rdfs:label "Base person"@en ;
+    rdfs:comment "Each person is a base person"@en .
 foaf:givenName a rdf:Property ;
-    rdfs:domain schema:Person .
+    rdfs:domain schema:Person ;
+    rdfs:label "Given name"@en ;
+    rdfs:comment "Given name of the base person"@en .
 foaf:familyName a rdf:Property ;
-    rdfs:domain schema:Person .
+    rdfs:domain schema:Person ;
+    rdfs:label "Family name"@en ;
+    rdfs:comment "Family name of the base person"@en .
 
-schema:Employee a rdfs:Class .
+schema:Employee a rdfs:Class ;
+    rdfs:subClassOf schema:Person ;
+    rdfs:label "Employee"@en ;
+    rdfs:comment "Employee person"@en .
 
-schema:Customer a rdfs:Class .
+schema:Customer a rdfs:Class ;
+    rdfs:subClassOf schema:Person ;
+    rdfs:label "Customer"@en ;
+    rdfs:comment "Customer person"@en .
 my:card a rdf:Property ;
     rdfs:domain schema:Customer ;
-    rdfs:range cis:Card .
+    rdfs:range cis:Card ;
+    rdfs:label "Base health insurance card"@en ;
+    rdfs:comment "Customer's health insurance card"@en .
 
-my:card a rdf:Property ;
-    rdfs:domain schema:Customer .
-
-pay:Payment a rdfs:Class .
+pay:Payment a rdfs:Class ;
+    rdfs:label "Base payment"@en ;
+    rdfs:comment "Each health insurance payment is a base health insurance payment"@en .
 schema:amount a rdf:Property ;
-    rdfs:domain pay:Payment .
+    rdfs:domain pay:Payment ;
+    rdfs:label "Amount"@en ;
+    rdfs:comment "Amount of money payed"@en .
 identity:timestamp a rdf:Property ;
-    rdfs:domain pay:Payment .
+    rdfs:domain pay:Payment ;
+    rdfs:label "Date and time"@en ;
+    rdfs:comment "Date and time of payment"@en .
 my:successful a rdf:Property ;
-    rdfs:domain pay:Payment .
+    rdfs:domain pay:Payment ;
+    rdfs:label "Successful"@en ;
+    rdfs:comment "Indicates if the payment was successful or not"@en .
 
 my:IdPayment a rdfs:Class ;
-    rdfs:subClassOf pay:Payment .
+    rdfs:subClassOf pay:Payment ;
+    rdfs:label "Id card payment"@en ;
+    rdfs:comment "Payment made with an id health insurance card"@en .
 my:idCard a rdf:Property ;
-    rdfs:domain my:IdPayment .
+    rdfs:domain my:IdPayment ;
+    rdfs:label "Id card"@en ;
+    rdfs:comment "The id health insurance card used for the id payment"@en .
 
 my:HIPayment a rdfs:Class ;
-    rdfs:subClassOf pay:Payment .
+    rdfs:subClassOf pay:Payment ;
+    rdfs:label "Institutional card payment"@en ;
+    rdfs:comment "Payment made with an institutional health insurance card"@en .
 my:hiCard a rdf:Property ;
-    rdfs:domain my:HIPayment .
+    rdfs:domain my:HIPayment ;
+    rdfs:label "Institutional card"@en ;
+    rdfs:comment "The institutional health insurance card used for the id payment"@en .
 
-lgdo:Insurance a rdfs:Class .
+lgdo:Insurance a rdfs:Class ;
+    rdfs:label "Insurance"@en ;
+    rdfs:comment "Customer health insurance"@en .
 common:active a rdf:Property ;
-    rdfs:domain lgdo:Insurance .
+    rdfs:domain lgdo:Insurance ;
+    rdfs:label "Active"@en ;
+    rdfs:comment "Indicates if the customer health insurance is active or not"@en .
 my:allowance a rdf:Property ;
-    rdfs:domain lgdo:Insurance .
+    rdfs:domain lgdo:Insurance ;
+    rdfs:label "Allowance"@en ;
+    rdfs:comment "Amount of money allocated to the customer health insurance"@en .
 my:customer a rdf:Property ;
     rdfs:domain lgdo:Insurance ;
-    rdfs:range schema:Customer .
-my:customer a rdf:Property ;
+    rdfs:range schema:Customer ;
+    rdfs:label "Customer"@en ;
+    rdfs:comment "Customer owning the health insurance"@en .
+my:payments a rdf:Property ;
     rdfs:domain lgdo:Insurance ;
-    rdfs:range pay:Payment .
+    rdfs:range pay:Payment ;
+    rdfs:label "Payments"@en ;
+    rdfs:comment "Payments done by the customer using his/her insurance"@en .
