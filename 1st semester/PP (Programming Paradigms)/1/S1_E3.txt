@@ -1,0 +1,17 @@
+declare
+fun {Max N M}
+   if N == 0 then
+      M
+   else
+      if M == 0 then
+	 N
+      else
+	 1 + {Max N-1 M-1}
+      end
+   end
+end
+
+{Browse {Max 0 8}}
+{Browse {Max 5 0}}
+{Browse {Max 5 8}}
+{Browse {Max 8 5}}

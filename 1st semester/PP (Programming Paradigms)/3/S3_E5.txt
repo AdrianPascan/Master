@@ -1,0 +1,12 @@
+declare
+fun {Eval Expr}
+   case Expr of
+      int(N) then N
+   [] add(Expr1 Expr2) then
+      {Eval Expr1} + {Eval Expr2}
+   [] mul(Expr1 Expr2) then
+      {Eval Expr1} * {Eval Expr2}
+   end
+end
+
+{Browse {Eval add(int(1) mul(int(3) int(4)))}}

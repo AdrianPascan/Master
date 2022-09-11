@@ -1,0 +1,42 @@
+declare
+fun {ReverseAux L1 L2}
+   case L1
+   of nil then
+      L2
+   [] H|T then
+      {ReverseAux T H|L2}
+   end
+end
+
+declare
+fun {Reverse L}
+   {ReverseAux L nil}
+end
+
+
+declare
+fun {UnZipAux Ls Xs Ys}
+   case Ls
+   of nil then
+      {Reverse Xs}#{Reverse Ys}
+   [] Lh|Lt then
+      {UnZipAux Lt Lh.1|Xs Lh.2|Ys}
+   end
+end
+
+% Unzips a list of tuples of two elements into a tuple of two lists,
+% the first one containing the left-most elements of the tuples and
+% the second one the right-most elements of them.
+%
+% Input:
+%   Ls - list of tuples elem1#elem2 to be unzipped
+% Output:
+%   Xs#Ls - tuple of two lists, where Xs contains the elem1's
+%                               and Ys contains the elem2's 
+declare
+fun {UnZip Ls}
+   {UnZipAux Ls nil nil}
+end
+
+
+{Browse {UnZip [a#1 b#2 c#3]} }

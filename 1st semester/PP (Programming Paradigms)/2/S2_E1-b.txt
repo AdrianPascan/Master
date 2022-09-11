@@ -1,0 +1,18 @@
+declare
+fun {Comb N K}
+   if K == 0 then
+      1
+   else
+      (N - K + 1) * {Comb N K-1} div K
+   end
+end
+
+
+{Browse {Comb 4 2} }
+
+{Browse {Comb 5 0} }
+{Browse {Comb 5 1} }
+{Browse {Comb 5 2} }
+{Browse {Comb 5 3} }
+{Browse {Comb 5 4} }
+{Browse {Comb 5 5} }

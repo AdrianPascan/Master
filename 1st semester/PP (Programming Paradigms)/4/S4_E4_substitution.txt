@@ -1,0 +1,117 @@
+declare
+
+Cnt = {NewCell 0}
+fun {NewId}
+   Cnt := @Cnt+1
+   {String.toAtom {Append "id<" {Append {Int.toString @Cnt} ">"}}}
+end
+
+fun {InRename Ex Envir}
+   case Ex of lam(Id Expr) then
+      if {IsMember Envir Id} then
+	 lam({Fetch Envir Id} {InRename Expr Envir})
+      else
+	 {AddNewId Ex {AdJoin Envir Id#{NewId}}}
+      end
+   [] apply(Expr1 Expr2) then
+      apply({InRename Expr1 Envir} {InRename Expr2 Envir})
+   [] let(Id#Expr1 Expr2) then
+      if {IsMember Envir Id} then
+	 let({Fetch Envir Id}#{InRename Expr1 Envir} {InRename Expr2 Envir})
+      else
+	 {AddNewId Ex {AdJoin Envir Id#{NewId}}}
+      end
+   [] Id then
+      if {IsMember Envir Id} then
+	 {Fetch Envir Id}
+      else
+	 Id
+      end
+   end
+end
+
+fun {AddNewId Ex Envir}
+   case Ex
+   of lam(Id Expr) then
+      lam({Fetch Envir Id} {InRename Expr Envir})
+   [] let(Id#Expr1 Expr2) then
+      let({Fetch Envir Id}#{InRename Expr1 Envir} {InRename Expr2 Envir})
+   end
+end
+
+fun {Rename Ex}
+   {InRename Ex nil}
+end
+
+fun {Variables Ex}
+   case Ex
+   of lam(Id Expr) then
+      Id|{Variables Expr}
+   [] apply(Expr1 Expr2) then
+      {Append {Variables Expr1} {Variables Expr2}}
+   [] let(Id#Expr1 Expr2) then
+      Id | {Append {Variables Expr1} {Variables Expr2}}  
+   else
+      [Ex]
+   end
+end
+
+fun {Bound Ex}
+   case Ex
+   of lam(Id Expr) then
+      Id | {Bound Expr}
+   [] apply(Expr1 Expr2) then
+      {Append {Bound Expr1} {Bound Expr2}}
+   [] let(Id#Expr1 Expr2) then
+      Id | {Append {Bound Expr1} {Bound Expr2}}  
+   else
+      nil
+   end
+end
+
+fun {Clash L1 L2}
+   case L1 of
+      nil then false
+   [] H|T then
+      if {InList L2 H} then
+	 true
+      else
+	 {Clash T L2}
+      end
+   end
+end
+
+fun {Subs Var_Rep  Ex}
+   case Var_Rep
+   of Var#Rep then
+      if {Clash {Variables Rep} {Bound Ex}} then
+	 {InSubs Var Rep {Rename Ex} nil}
+      else
+	 {InSubs Var Rep Ex nil}
+      end
+   end
+end
+
+fun {InSubs Var Rep Ex List}
+   case Ex
+   of lam(Id Expr) then
+      lam(Id {InSubs Var Rep Expr Id|List})
+   [] apply(Expr1 Expr2) then
+      apply({InSubs Var Rep Expr1 List} {InSubs Var Rep Expr2 List})
+   [] let(Id#Expr1 Expr2) then
+      let(Id#{InSubs Var Rep Expr1 Id|List} {InSubs Var Rep Expr2 Id|List})   
+   else
+      if {Not {InList List Ex}} then
+	 if (Ex == Var) then
+	    Rep
+	 else Ex
+	 end
+      else
+	 Ex
+      end
+   end
+end
+
+
+{Browse {Subs x#lam(z b) apply(x lam(z apply(x z)))}}
+{Browse {Subs x#lam(z z) apply(x lam(x apply(x z)))}}

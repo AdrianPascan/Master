@@ -1,0 +1,41 @@
+declare
+fun {InList List X}
+   case List
+   of nil then
+      false
+   [] H|T then
+      if X==H then
+	 true
+      else
+	 {InList T X}
+      end
+   end
+end
+
+declare
+fun {InFreeSet Ex List}
+   case Ex
+   of lam(Id Expr) then
+      {InFreeSet Expr (Id|List)}
+   [] apply(Expr1 Expr2) then
+      {Append {InFreeSet Expr1 List} {InFreeSet Expr2 List}}
+   [] let(Id#Expr1 Expr2) then
+      {Append {InFreeSet Expr1 (Id|List)} {InFreeSet Expr2 (Id|List)}}
+   else
+      if {InList List Ex} then
+	 nil
+      else
+	 [Ex]
+      end
+   end
+end
+
+declare
+fun {FreeSet Ex}
+   {InFreeSet Ex nil}
+end
+
+
+{Browse {FreeSet lam(x apply(y x))}}
+{Browse {FreeSet apply(x let(x#y x))}}
+{Browse {FreeSet apply(y apply(let(x#x x) y))}}

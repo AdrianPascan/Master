@@ -1,0 +1,15 @@
+declare
+fun {Zip Xs#Ys}
+   case Xs
+   of nil then
+      nil
+   [] Xh|Xt then
+      case Ys
+      of Yh|Yt then
+	 Xh#Yh|{Zip Xt#Yt}
+      end
+   end
+end
+
+
+{Browse {Zip [a b c]#[1 2 3]} }

@@ -1,0 +1,49 @@
+declare
+
+Cnt = {NewCell 0}
+fun {NewId}
+   Cnt := @Cnt+1
+   {String.toAtom {Append "id<" {Append {Int.toString @Cnt} ">"}}}
+end
+
+fun {InRename Ex Envir}
+   case Ex
+   of lam(Id Expr) then
+      if {IsMember Envir Id} then
+	 lam({Fetch Envir Id} {InRename Expr Envir})
+      else
+	 {AddNewId Ex {AdJoin Envir Id#{NewId}}}
+      end
+   [] apply(Expr1 Expr2) then
+      apply({InRename Expr1 Envir} {InRename Expr2 Envir})
+   [] let(Id#Expr1 Expr2) then
+      if {IsMember Envir Id} then
+	 let({Fetch Envir Id}#{InRename Expr1 Envir} {InRename Expr2 Envir})
+      else
+	 {AddNewId Ex {AdJoin Envir Id#{NewId}}}
+      end
+   [] Id then
+      if {IsMember Envir Id} then
+	 {Fetch Envir Id}
+      else
+	 Id
+      end
+   end
+end
+
+fun {AddNewId Ex Envir}
+   case Ex
+   of lam(Id Expr) then
+      lam({Fetch Envir Id} {InRename Expr Envir})
+   [] let(Id#Expr1 Expr2) then
+      let({Fetch Envir Id}#{InRename Expr1 Envir} {InRename Expr2 Envir})
+   end
+end
+
+fun {Rename Ex}
+   {InRename Ex nil}
+end
+
+
+{Browse {Rename lam(z lam(x z))}}
+{Browse {Rename let(id#lam(z z) apply(id y))}}

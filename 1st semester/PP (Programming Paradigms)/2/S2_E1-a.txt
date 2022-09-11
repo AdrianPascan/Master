@@ -1,0 +1,36 @@
+declare
+fun {CombNum N K}
+   if K == 1 then
+      N
+   else
+      (N - K + 1) * {CombNum N K-1}
+   end
+end
+
+declare
+fun {CombDen K}
+   if K == 1 then
+      1
+   else
+      K * {CombDen K-1}
+   end
+end
+
+declare
+fun {Comb N K}
+   if K == 0 then
+      1
+   else
+      {CombNum N K} div {CombDen K}
+   end
+end
+
+
+{Browse {Comb 4 2} }
+
+{Browse {Comb 5 0} }
+{Browse {Comb 5 1} }
+{Browse {Comb 5 2} }
+{Browse {Comb 5 3} }
+{Browse {Comb 5 4} }
+{Browse {Comb 5 5} }

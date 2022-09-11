@@ -1,0 +1,16 @@
+declare
+fun {ReverseAux L1 L2}
+   case L1
+   of nil then
+      L2
+   [] H|T then
+      {ReverseAux T H|L2}
+   end
+end
+
+declare
+fun {Reverse L}
+   {ReverseAux L nil}
+end
+
+{Browse {Reverse ['I' 'want' 'to' 'go' 'there']} }

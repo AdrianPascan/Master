@@ -1,0 +1,88 @@
+declare
+fun {Insert BTree E}
+   case BTree of
+      nil then leaf(value:E)
+   [] leaf(value:V) then
+      if E<V then node(value:V left:leaf(value:E) right:nil)
+      else node(value:V left:nil right:leaf(value:E))
+      end
+   [] node(value:V left:L right:R) then
+      if E<V then node(value:V left:{Insert L E} right:R)
+      else node(value:V left:L right:{Insert R E})
+      end
+   end
+end
+
+N2 = leaf(value:4)
+N3 = leaf(value:1)
+N1 = node(value:3 left:N3 right:N2)
+Tr = {Insert {Insert {Insert {Insert N1 2} 5} 0} 55}
+
+{Browse Tr}
+
+fun {Smallest BTree}
+   case BTree of
+      nil then nil
+   [] leaf(value:V) then V
+   [] node(value:V left:L right:R) then 
+	if L \= nil then {Smallest L}
+        else V
+        end
+   end
+end
+
+{Browse {Smallest Tr}}
+
+fun {Biggest BTree}
+   case BTree of
+      nil then nil
+   [] leaf(value:V) then V
+   [] node(value:V left:L right:R) then
+	if R \= nil then {Biggest R}
+        else V
+        end
+   end
+end
+
+{Browse {Biggest Tr}}
+
+N30 = node(value:10 left: nil right:nil)
+N20 = node(value:5 left:nil right:N30)
+N10 = node(value:3 left:nil right:N20)
+
+Tree1 = {Insert N10 2}
+Tree = {Insert Tree1 6}
+
+fun {IsSortedBST BTree}
+   case BTree of nil then true
+   [] leaf(value: V) then true
+   [] node(value: V left:L right:R) then
+      if L == nil then
+	 if R == nil then
+	    true
+	 else
+	    {IsSortedBST R}
+	 end
+      else
+	 if R == nil then
+	    {IsSortedBST L}
+	 else
+	    if {Biggest L} >= V then false
+	    else if {Smallest R} < V then false
+		 else {And {IsSortedBST L} {IsSortedBST R}}
+		 end
+	    end
+	 end
+      end
+   end
+end
+
+N4 = node(value:10 left: nil right:nil)
+N5 = node(value:5 left:nil right:N30)
+N6 = node(value:3 left:N4 right:N20)
+
+{Browse N6}
+{Browse {IsSortedBST N6}}
+
+{Browse Tree}
+{Browse {IsSortedBST Tree}}

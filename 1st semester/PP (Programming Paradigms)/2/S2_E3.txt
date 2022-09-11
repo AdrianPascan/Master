@@ -1,0 +1,60 @@
+declare
+fun lazy {Gen N} N|{Gen N+1} end
+
+
+declare
+fun lazy {Filter L H}
+   case L
+   of nil then
+      nil
+   [] A|As then
+      if (A mod H)==0 then
+	 {Filter As H}
+      else
+	 A|{Filter As H}
+      end
+   end
+end
+
+
+declare
+fun lazy {Sieve L}
+   case L
+   of nil then
+      nil
+   [] H|T then
+      H|{Sieve {Filter T H} }
+   end
+end
+
+
+declare
+fun lazy {Prime} {Sieve {Gen 2}} end
+
+
+declare
+fun {GenAfterAux N Lp}
+   case Lp
+   of nil then
+      nil
+   [] H|T then
+      if N < H then
+	 H
+      else
+	 {GenAfterAux N T}
+      end
+   end
+end
+
+declare
+fun {GenAfter N}
+   {GenAfterAux N {Prime}}
+end
+
+
+{Browse {GenAfter 1} }
+{Browse {GenAfter 2} }
+{Browse {GenAfter 3} }
+{Browse {GenAfter 4} }
+{Browse {GenAfter 5} }
+{Browse {GenAfter 100} }

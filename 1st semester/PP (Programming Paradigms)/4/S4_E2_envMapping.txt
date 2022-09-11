@@ -1,0 +1,64 @@
+declare
+fun {IsMember Env Id}
+   case Env
+   of nil then
+      false
+   [] H|T then
+      case H of X#Y then
+	 if X==Id then
+	    true
+	 else
+	    {IsMember T Id}
+	 end
+      end
+   end
+end
+
+
+declare
+fun {Fetch Env Id}
+   case Env
+   of nil then
+      Id
+   [] H|T then
+      case H of X#Y then
+	 if X==Id then
+	    Y
+	 else
+	    {Fetch T Id}
+	 end
+      end
+   end
+end
+
+
+declare
+fun {AdjoinAux Env Id}
+   case Env
+   of nil then
+      nil
+   [] Hid#Hexp|T then
+      if Hid == Id then
+	 {AdJoinAux T Id}
+      else
+	 Hid#Hexp | {AdJoinAux T Id}
+      end
+   end
+end
+
+declare
+fun {Adjoin Env Id#Exp}
+   Id#Exp | {AdjoinAux Env Id}
+end
+
+
+local
+   E1='E1' E2='E2' E3='E3' E4='E4'
+in
+   {Browse {IsMember [a#E1 b#E2 c#E3] c}}
+   {Browse {IsMember [a#E1 b#E2 c#E3] y}}
+   {Browse {Fetch [a#E1 b#E2 c#E3] c}}
+   {Browse {Fetch [a#E1 b#E2 c#E3] d}}
+   {Browse {Adjoin [a#E1 b#y c#E3] c#E4}}
+   {Browse {Adjoin [a#E1 b#y c#E3] d#E4}}
+end

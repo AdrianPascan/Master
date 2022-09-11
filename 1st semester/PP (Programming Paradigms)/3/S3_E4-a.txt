@@ -1,0 +1,21 @@
+declare
+fun {PositionAux Xs Y Pos}
+   case Xs
+   of H|T then
+      if H == Y then
+	 Pos
+      else
+	 {PositionAux T Y Pos+1}
+      end
+   end
+end
+
+declare
+fun {Position Xs Y}
+   {PositionAux Xs Y 1}
+end
+
+
+{Browse {Position [a b c] c} }
+{Browse {Position [a b c b] b} }
+{Browse {Position [a b c b] d} }

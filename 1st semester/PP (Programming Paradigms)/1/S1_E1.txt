@@ -1,0 +1,23 @@
+declare
+fun {AbsoluteAux N Zero}
+   if N < Zero then
+      ~N
+   else
+      N
+   end
+end
+
+declare
+fun {Absolute N}
+   if { Int.is N } then
+      {AbsoluteAux N 0}
+   else
+      {AbsoluteAux N 0.0}
+   end
+end
+
+{Browse {Absolute ~3} }
+{Browse {Absolute ~2.7} }
+{Browse {Absolute 0} }
+{Browse {Absolute 2.7} }
+{Browse {Absolute 3} }
