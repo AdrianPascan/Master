@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export CLASSPATH=.
+java -Xss100000000 Main "$@"

@@ -1,0 +1,15 @@
+{
+  "name": "nswi080-thrift",
+  "version": "1.0.0",
+  "description": "Example for NSWI080 Middleware Lab 2",
+  "main": "index.js",
+  "scripts": {
+    "generate": "thrift --gen js:node Example.thrift",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "thrift": "^0.14.1"
+  }
+}

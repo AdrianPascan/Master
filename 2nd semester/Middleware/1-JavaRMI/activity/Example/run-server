@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export CLASSPATH=.
+# -Djava.rmi.dgc.leaseValue=500
+
+java -Djava.rmi.server.hostname=localhost ExampleServer

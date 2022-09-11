@@ -1,0 +1,39 @@
+sw2-013:/afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L4/Example$ bash run-client.sh
+Dub 21, 2022 4:30:45 ODP. com.hazelcast.client.impl.spi.ClientInvocationService
+INFO: hz.client_1 [dev] [5.1.1] Running with 2 response threads, dynamic=true
+Dub 21, 2022 4:30:45 ODP. com.hazelcast.core.LifecycleService
+INFO: hz.client_1 [dev] [5.1.1] HazelcastClient 5.1.1 (20220317 - 5b5fa10) is STARTING
+Dub 21, 2022 4:30:45 ODP. com.hazelcast.core.LifecycleService
+INFO: hz.client_1 [dev] [5.1.1] HazelcastClient 5.1.1 (20220317 - 5b5fa10) is STARTED
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.client.impl.connection.ClientConnectionManager
+INFO: hz.client_1 [dev] [5.1.1] Trying to connect to cluster: dev
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.client.impl.connection.ClientConnectionManager
+INFO: hz.client_1 [dev] [5.1.1] Trying to connect to [127.0.0.1]:5701
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.core.LifecycleService
+INFO: hz.client_1 [dev] [5.1.1] HazelcastClient 5.1.1 (20220317 - 5b5fa10) is CLIENT_CONNECTED
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.client.impl.connection.ClientConnectionManager
+INFO: hz.client_1 [dev] [5.1.1] Authenticated with server [127.0.0.1]:5701:06aa8376-22bc-4d04-a2fc-93b5966763d6, server version: 5.1.1, local address: /127.0.0.1:49727
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.internal.diagnostics.Diagnostics
+INFO: hz.client_1 [dev] [5.1.1] Diagnostics disabled. To enable add -Dhazelcast.diagnostics.enabled=true to the JVM arguments.
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.client.impl.spi.ClientClusterService
+INFO: hz.client_1 [dev] [5.1.1]
+
+Members [2] {
+        Member [127.0.0.1]:5701 - 06aa8376-22bc-4d04-a2fc-93b5966763d6
+        Member [127.0.0.1]:5703 - 1f915e6d-090b-48e3-bb93-e19ea73168b0
+}
+
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.client.impl.connection.ClientConnectionManager
+INFO: hz.client_1 [dev] [5.1.1] Authenticated with server [127.0.0.1]:5703:1f915e6d-090b-48e3-bb93-e19ea73168b0, server version: 5.1.1, local address: /127.0.0.1:42665
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.client.impl.statistics.ClientStatisticsService
+INFO: Client statistics is enabled with period 5 seconds.
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.core.LifecycleService
+INFO: hz.client_1 [dev] [5.1.1] HazelcastClient 5.1.1 (20220317 - 5b5fa10) is SHUTTING_DOWN
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.client.impl.connection.ClientConnectionManager
+INFO: hz.client_1 [dev] [5.1.1] Removed connection to endpoint: [127.0.0.1]:5703:1f915e6d-090b-48e3-bb93-e19ea73168b0, connection: ClientConnection{alive=false, connectionId=2, channel=NioChannel{/127.0.0.1:42665->/127.0.0.1:5703}, remoteAddress=[127.0.0.1]:5703, lastReadTime=2022-04-21 16:30:46.216, lastWriteTime=2022-04-21 16:30:46.183, closedTime=2022-04-21 16:30:46.219, connected server version=5.1.1}
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.client.impl.connection.ClientConnectionManager
+INFO: hz.client_1 [dev] [5.1.1] Removed connection to endpoint: [127.0.0.1]:5701:06aa8376-22bc-4d04-a2fc-93b5966763d6, connection: ClientConnection{alive=false, connectionId=1, channel=NioChannel{/127.0.0.1:49727->/127.0.0.1:5701}, remoteAddress=[127.0.0.1]:5701, lastReadTime=2022-04-21 16:30:46.176, lastWriteTime=2022-04-21 16:30:46.171, closedTime=2022-04-21 16:30:46.223, connected server version=5.1.1}
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.core.LifecycleService
+INFO: hz.client_1 [dev] [5.1.1] HazelcastClient 5.1.1 (20220317 - 5b5fa10) is CLIENT_DISCONNECTED
+Dub 21, 2022 4:30:46 ODP. com.hazelcast.core.LifecycleService
+INFO: hz.client_1 [dev] [5.1.1] HazelcastClient 5.1.1 (20220317 - 5b5fa10) is SHUTDOWN

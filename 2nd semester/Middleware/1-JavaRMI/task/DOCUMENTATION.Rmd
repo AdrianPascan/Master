@@ -1,0 +1,606 @@
+---
+title: "MIDDLEWARE Lab. 1: Java RMI"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(tidyverse)
+```
+
+# General
+
+For measurements I switched to a graph with 100 nodes because the correct implementation of the remote nodes and local searcher would slow down my app drastically.
+
+As for density, I switched from 2.000, 20.000, 200.000 edges and the complete graph (which has 499.500 edges) to 20, 200, 2000 edges and the complete graph (which has 4.950 edges).
+
+Regarding the transitive distance, I swicthed from the values for the neighbor distance 4, 999, and 19999 to the values for the neighbor distance 4, 99, and 1999.
+
+Random seed was set to 5999999.
+
+```{r}
+m_2e1 = read.table('measure_updated/Measurement_2e1-edges.txt', header = TRUE)
+m_2e2 = read.table('measure_updated/Measurement_2e2-edges.txt', header = TRUE)
+m_2e3 = read.table('measure_updated/Measurement_2e3-edges.txt', header = TRUE)
+m_complete = read.table('measure_updated/Measurement_complete.txt', header = TRUE)
+```
+
+# 1. Local measurement
+
+```{r}
+lgls_2e1 = filter(m_2e1, Config == "LGLS")
+lgls_2e2 = filter(m_2e2, Config == "LGLS")
+lgls_2e3 = filter(m_2e3, Config == "LGLS")
+lgls_complete = filter(m_complete, Config == "LGLS")
+```
+
+```{r}
+ggplot(data = lgls_2e1, aes(x = Attempt)) + 
+  ggtitle("20 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgls_2e1, aes(x = Attempt)) + 
+  ggtitle("20 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = lgls_2e2, aes(x = Attempt)) + 
+  ggtitle("200 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgls_2e2, aes(x = Attempt)) + 
+  ggtitle("200 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = lgls_2e3, aes(x = Attempt)) + 
+  ggtitle("2.000 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgls_2e3, aes(x = Attempt)) + 
+  ggtitle("2.000 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = lgls_complete, aes(x = Attempt)) + 
+  ggtitle("Complete", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgls_complete, aes(x = Attempt)) + 
+  ggtitle("Complete", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+# 2. Remote Searcher
+
+**Question:** How does the server `Searcher` object access the `Node` objects and the set of their neighbors?
+
+The remote `Searcher` instance gets copies from the client of the two `Node` instances which are sent as parameters, including a deep copy of the *nodes* field which is a set of the neighboring nodes. Not only copies of the directly neighbouring nodes are sent, but copies of all nodes that are connected, either directly or indirectly, to the input nodes.
+
+**Measurement**
+
+```{r}
+lgrs_2e1 = filter(m_2e1, Config == "LGRS")
+lgrs_2e2 = filter(m_2e2, Config == "LGRS")
+lgrs_2e3 = filter(m_2e3, Config == "LGRS")
+lgrs_complete = filter(m_complete, Config == "LGRS")
+```
+
+```{r}
+ggplot(data = lgrs_2e1, aes(x = Attempt)) + 
+  ggtitle("20 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgrs_2e1, aes(x = Attempt)) + 
+  ggtitle("20 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = lgrs_2e2, aes(x = Attempt)) + 
+  ggtitle("200 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgrs_2e2, aes(x = Attempt)) + 
+  ggtitle("200 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = lgrs_2e3, aes(x = Attempt)) + 
+  ggtitle("2.000 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgrs_2e3, aes(x = Attempt)) + 
+  ggtitle("2.000 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = lgrs_complete, aes(x = Attempt)) + 
+  ggtitle("Complete", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgrs_complete, aes(x = Attempt)) + 
+  ggtitle("Complete", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+# 3. Remote Nodes
+
+**Question:** How does the local `Searcher` object access the server `Node` objects? What exactly does the `NodeFactory` return to the client from `createNode`?
+
+The local `Searcher` object accesses the remote `Node` objects through their object ids. `NodeFactory.createNode` would ussually return a reference to the `Node` object, but for the client it would return the object id of the `Node` instance.
+
+**Measurement**
+
+```{r}
+rgls_2e1 = filter(m_2e1, Config == "RGLS")
+rgls_2e2 = filter(m_2e2, Config == "RGLS")
+rgls_2e3 = filter(m_2e3, Config == "RGLS")
+rgls_complete = filter(m_complete, Config == "RGLS")
+```
+
+```{r}
+ggplot(data = rgls_2e1, aes(x = Attempt)) + 
+  ggtitle("20 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = rgls_2e1, aes(x = Attempt)) + 
+  ggtitle("20 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = rgls_2e2, aes(x = Attempt)) + 
+  ggtitle("200 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = rgls_2e2, aes(x = Attempt)) + 
+  ggtitle("200 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = rgls_2e3, aes(x = Attempt)) + 
+  ggtitle("2.000 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = rgls_2e3, aes(x = Attempt)) + 
+  ggtitle("2.000 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = rgls_complete, aes(x = Attempt)) + 
+  ggtitle("Complete", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = rgls_complete, aes(x = Attempt)) + 
+  ggtitle("Complete", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+# 4. Remote Nodes and Searcher
+
+**Question:** How does the server `Searcher` access the server `Node` objects (on the same server)?
+
+Since the objects are on the same local machine, namely the server, the access is done as usual through references to the `Searcher` and `Node` class instances.
+
+**Measurement**
+
+```{r}
+rgrs_2e1 = filter(m_2e1, Config == "RGRS")
+rgrs_2e2 = filter(m_2e2, Config == "RGRS")
+rgrs_2e3 = filter(m_2e3, Config == "RGRS")
+rgrs_complete = filter(m_complete, Config == "RGRS")
+```
+
+```{r}
+ggplot(data = rgrs_2e1, aes(x = Attempt)) + 
+  ggtitle("20 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = rgrs_2e1, aes(x = Attempt)) + 
+  ggtitle("20 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = rgrs_2e2, aes(x = Attempt)) + 
+  ggtitle("200 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = rgrs_2e2, aes(x = Attempt)) + 
+  ggtitle("200 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = rgrs_2e3, aes(x = Attempt)) + 
+  ggtitle("2.000 edges", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = rgrs_2e3, aes(x = Attempt)) + 
+  ggtitle("2.000 edges", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+```{r}
+ggplot(data = rgrs_complete, aes(x = Attempt)) + 
+  ggtitle("Complete", subtitle = "regular vs transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (4)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = rgrs_complete, aes(x = Attempt)) + 
+  ggtitle("Complete", subtitle = "transitive distance dependency on neighbor distance (4, 999, 1.999)") +
+  ylab("Time") +
+  geom_line(aes(y = TTime4, color = "4")) +
+  geom_line(aes(y = TTime99, color = "999")) +
+  geom_line(aes(y = TTime1999, color = "1.999")) + 
+  scale_colour_manual(name = "Neighbor dist.", values = c("4" = "blue", "999" = "purple", "1.999" = "black"))
+```
+
+# 5. Impact of The Network
+
+**Compare** the speed of the four variants when both client and server are running on the same machine. Measure everything in one run to ease comparison. Plot the results into a chart with four data series corresponding to the four variants.
+
+```{r}
+ggplot(data = m_2e1, aes(x = Attempt)) +
+  ggtitle("20 edges", subtitle = "regular vs transitive distance (with neighbor distance 4) for different configs") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) +
+  scale_colour_manual(name = "Distance", values = c("regular" = "darkred", "transitive (4)" = "steelblue")) +
+  facet_wrap(facets = vars(Config))
+```
+
+```{r}
+ggplot(data = m_2e2, aes(x = Attempt)) +
+  ggtitle("200 edges", subtitle = "regular vs transitive distance (with neighbor distance 4) for different configs") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) +
+  scale_colour_manual(name = "Distance", values = c("regular" = "darkred", "transitive (4)" = "steelblue")) +
+  facet_wrap(facets = vars(Config))
+```
+
+```{r}
+ggplot(data = m_2e3, aes(x = Attempt)) +
+  ggtitle("2.000 edges", subtitle = "regular vs transitive distance (with neighbor distance 4) for different configs") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) +
+  scale_colour_manual(name = "Distance", values = c("regular" = "darkred", "transitive (4)" = "steelblue")) +
+  facet_wrap(facets = vars(Config))
+```
+
+```{r}
+ggplot(data = m_complete, aes(x = Attempt)) +
+  ggtitle("Complete", subtitle = "regular vs transitive distance (with neighbor distance 4) for different configs") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime4, color = "transitive (4)")) +
+  scale_colour_manual(name = "Distance", values = c("regular" = "darkred", "transitive (4)" = "steelblue")) +
+  facet_wrap(facets = vars(Config))
+```
+
+**Explain** the cause of the differences in the times.
+
+The time differences are caused by the request-response delay imposed by communication over the network infrastructure. Working with the localhost should have a smaller time penalty in comparison with working over the network (assuming the available resources of the local machine are high enough to not slow down the local processing) since communication is more of a formality and the requests are mirrored on the same machine.
+
+**NOTICE**: For the experiments, I ran the server on one of the computers in Rotunda and the client on my personal laptop, [while being in Rotunda]{.underline}. This led to strange outcomes where the localhost seems to be slower than the network which is most probably a result of using many resources of the Rotunda machine and the physical distance being too small.
+
+**Compare** the results of the running locally and over the network.
+
+The transitive distance is computed for **neighbor distance 4**.
+
+```{r}
+local = read.table('measure_updated/Local.txt', header = TRUE)
+local_lgrs = filter(local, Config == "LGRS")
+local_rgls = filter(local, Config == "RGLS")
+local_rgrs = filter(local, Config == "RGRS")
+
+network = read.table('measure_updated/OverNetwork.txt', header = TRUE)
+network_lgrs = filter(network, Config == "LGRS")
+network_rgls = filter(network, Config == "RGLS")
+network_rgrs = filter(network, Config == "RGRS")
+```
+
+```{r}
+ggplot() + 
+  ggtitle("Local graph & remote searcher", subtitle = "regular distance") +
+  ylab("Time") +
+  geom_line(data = local_lgrs,  aes(x = Attempt, y = Time, color = "local")) +
+  geom_line(data = network_lgrs, aes(x = Attempt, y = Time, color = "newtork")) + 
+  scale_colour_manual(name = element_blank(), values = c("local" = "darkred", "network" = "steelblue"))
+```
+
+```{r}
+ggplot() + 
+  ggtitle("Local graph & remote searcher", subtitle = "transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(data = local_lgrs,  aes(x = Attempt, y = TTime, color = "local")) +
+  geom_line(data = network_lgrs, aes(x = Attempt, y = TTime, color = "newtork")) + 
+  scale_colour_manual(name = element_blank(), values = c("local" = "darkred", "network" = "steelblue"))
+```
+
+```{r}
+ggplot() + 
+  ggtitle("Remote graph & local searcher", subtitle = "regular distance") +
+  ylab("Time") +
+  geom_line(data = local_rgls,  aes(x = Attempt, y = Time, color = "local")) +
+  geom_line(data = network_rgls, aes(x = Attempt, y = Time, color = "newtork")) + 
+  scale_colour_manual(name = element_blank(), values = c("local" = "darkred", "network" = "steelblue"))
+```
+
+```{r}
+ggplot() + 
+  ggtitle("Remote graph & local searcher", subtitle = "transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(data = local_rgls,  aes(x = Attempt, y = TTime, color = "local")) +
+  geom_line(data = network_rgls, aes(x = Attempt, y = TTime, color = "newtork")) + 
+  scale_colour_manual(name = element_blank(), values = c("local" = "darkred", "network" = "steelblue"))
+```
+
+```{r}
+ggplot() + 
+  ggtitle("Remote graph & remote searcher", subtitle = "regular distance") +
+  ylab("Time") +
+  geom_line(data = local_rgrs,  aes(x = Attempt, y = Time, color = "local")) +
+  geom_line(data = network_rgrs, aes(x = Attempt, y = Time, color = "newtork")) + 
+  scale_colour_manual(name = element_blank(), values = c("local" = "darkred", "network" = "steelblue"))
+```
+
+```{r}
+ggplot() + 
+  ggtitle("Remote graph & remote searcher", subtitle = "transitive distance (with neighbor distance 4)") +
+  ylab("Time") +
+  geom_line(data = local_rgrs,  aes(x = Attempt, y = TTime, color = "local")) +
+  geom_line(data = network_rgrs, aes(x = Attempt, y = TTime, color = "newtork")) + 
+  scale_colour_manual(name = element_blank(), values = c("local" = "darkred", "network" = "steelblue"))
+```
+
+# 6. Passing by Value vs. Passing by Reference
+
+**NOTICE**: For the 100 nodes graph I chose **99** as the neighbor distance value because it would be enough to parse a chain containing all the nodes in the graph.
+
+**Question:** In which one of the four variants (both local, remote searcher, remote nodes, both remote) does this parameter have a significant effect on network traffic?
+
+The neighbor distance parameter has a significant effect on the network traffic in the context with local nodes and remote searcher.
+
+**Question:** How does the parameter affect the amount of data passed through the network during execution of the algorithm? Compare with the previous variants.
+
+The neighbor distance parameter directly affects the number of copies of the `Node` instances sent over the network by the client to the `Searcher` object of the server. Since the searcher uses a (breadth-first search) traversal algorithm and each `Node` instance has a set of the neighbor nodes, having a copy of the same `Node` instance in two different layers of the traversal implies having two different copies of the same set of neighbor nodes. This is the reason why, for example, depending on the input `Node` objects, having all nodes in a single traversal layer may be faster than traversing in multiple layers. The edges also influence the final result - e.g., traversing the whole graph (and, implicitly, visiting all its nodes) may be faster for graphs with less neighbors than for graphs with more neighbors.
+
+```{r}
+ggplot() + 
+  ggtitle("20 edges", subtitle = "transitive distance with neighbor distance 999 for different configs") +
+  ylab("Time") +
+  geom_line(data = lgls_2e1, aes(x = Attempt, y = TTime99, color = "lgls")) +
+  geom_line(data = lgrs_2e1, aes(x = Attempt, y = TTime99, color = "lgrs")) +
+  geom_line(data = rgls_2e1, aes(x = Attempt, y = TTime99, color = "rgls")) +
+  geom_line(data = rgrs_2e1, aes(x = Attempt, y = TTime99, color = "rgrs")) +
+  scale_colour_manual(name = "Graph & searcher", values = c("lgls" = "blue", "lgrs" = "red", "rgls" = "purple", "rgrs"="black"))
+```
+
+```{r}
+ggplot() + 
+  ggtitle("200 edges", subtitle = "transitive distance with neighbor distance 999 for different configs") +
+  ylab("Time") +
+  geom_line(data = lgls_2e2, aes(x = Attempt, y = TTime99, color = "lgls")) +
+  geom_line(data = lgrs_2e2, aes(x = Attempt, y = TTime99, color = "lgrs")) +
+  geom_line(data = rgls_2e2, aes(x = Attempt, y = TTime99, color = "rgls")) +
+  geom_line(data = rgrs_2e2, aes(x = Attempt, y = TTime99, color = "rgrs")) +
+  scale_colour_manual(name = "Graph & searcher", values = c("lgls" = "blue", "lgrs" = "red", "rgls" = "purple", "rgrs"="black"))
+```
+
+```{r}
+ggplot() + 
+  ggtitle("2.000 edges", subtitle = "transitive distance with neighbor distance 999 for different configs") +
+  ylab("Time") +
+  geom_line(data = lgls_2e3, aes(x = Attempt, y = TTime99, color = "lgls")) +
+  geom_line(data = lgrs_2e3, aes(x = Attempt, y = TTime99, color = "lgrs")) +
+  geom_line(data = rgls_2e3, aes(x = Attempt, y = TTime99, color = "rgls")) +
+  geom_line(data = rgrs_2e3, aes(x = Attempt, y = TTime99, color = "rgrs")) +
+  scale_colour_manual(name = "Graph & searcher", values = c("lgls" = "blue", "lgrs" = "red", "rgls" = "purple", "rgrs"="black"))
+```
+
+```{r}
+ggplot() + 
+  ggtitle("Complete", subtitle = "transitive distance with neighbor distance 999 for different configs") +
+  ylab("Time") +
+  geom_line(data = lgls_complete, aes(x = Attempt, y = TTime99, color = "lgls")) +
+  geom_line(data = lgrs_complete, aes(x = Attempt, y = TTime99, color = "lgrs")) +
+  geom_line(data = rgls_complete, aes(x = Attempt, y = TTime99, color = "rgls")) +
+  geom_line(data = rgrs_complete, aes(x = Attempt, y = TTime99, color = "rgrs")) +
+  scale_colour_manual(name = "Graph & searcher", values = c("lgls" = "blue", "lgrs" = "red", "rgls" = "purple", "rgrs"="black"))
+```
+
+**Measurement**
+
+```{r}
+lgrs6_2e1 = read.table('measure_updated/Measure6_2e1-edges.txt', header = TRUE)
+lgrs6_2e2 = read.table('measure_updated/Measure6_2e2-edges.txt', header = TRUE)
+lgrs6_2e3 = read.table('measure_updated/Measure6_2e3-edges.txt', header = TRUE)
+lgrs6_complete = read.table('measure_updated/Measure6_complete.txt', header = TRUE)
+```
+
+```{r}
+ggplot(data = lgrs6_2e1, aes(x = Attempt)) + 
+  ggtitle("Local graph & remote searcher", subtitle = "20 edges, neighbor distance 99") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime, color = "transitive (99)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (99)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgrs6_2e2, aes(x = Attempt)) + 
+  ggtitle("Local graph & remote searcher", subtitle = "200 edges, neighbor distance 99") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime, color = "transitive (99)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (99)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgrs6_2e3, aes(x = Attempt)) + 
+  ggtitle("Local graph & remote searcher", subtitle = "2.000 edges, neighbor distance 99") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime, color = "transitive (99)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (99)" = "steelblue"))
+```
+
+```{r}
+ggplot(data = lgrs6_complete, aes(x = Attempt)) + 
+  ggtitle("Local graph & remote searcher", subtitle = "complete, neighbor distance 99") +
+  ylab("Time") +
+  geom_line(aes(y = Time, color = "regular")) +
+  geom_line(aes(y = TTime, color = "transitive (99)")) + 
+  scale_colour_manual(name = element_blank(), values = c("regular" = "darkred", "transitive (99)" = "steelblue"))
+```

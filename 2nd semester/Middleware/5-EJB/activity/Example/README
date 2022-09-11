@@ -1,0 +1,18 @@
+1. Unpack openejb-standalone-8.0.11.tar.gz
+
+2. Update OPENEJB_HOME in setenv.sh
+
+3. Compile the beans and client:
+   bash make.sh
+
+4. Run the EJB server (in another console window):
+   bash run-server.sh
+
+5. Deploy your beans to the running server:
+   bash run-deploy.sh
+
+6. Run the client:
+   bash run-client.sh
+
+7. Stop the EJB server gracefully
+   bash stop-server.sh

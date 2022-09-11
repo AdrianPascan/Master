@@ -1,0 +1,24 @@
+sw2-015:/afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/Example$ bash run-client.sh
+Kvě 05, 2022 3:57:57 ODP. org.apache.openejb.client.EventLogger log
+INFO: RemoteInitialContextCreated{providerUri=ejbd://127.0.0.1:4201}
+Kvě 05, 2022 3:57:57 ODP. org.apache.openejb.client.EventLogger log
+INFO: ConnectionOpened{uri=ejbd://127.0.0.1:4201}
+Kvě 05, 2022 3:57:57 ODP. org.apache.openejb.client.EventLogger log
+INFO: ServerAdded{server=ejbds://127.0.0.1:4203} ClusterMetaDataUpdated{provider=ejbd://127.0.0.1:4201, version=1651758886541, uris=2}
+Hello World!!!!
+1
+2
+0
+1
+Steven Spielberg
+George Lucas
+Steven Spielberg
+George Lucas
+Steven Spielberg: Jurassic Park
+Steven Spielberg: E.T. the Extra-Terrestrial
+George Lucas: Star Wars
+George Lucas: Return of the Jedi
+Steven Spielberg: Jurassic Park
+Steven Spielberg: E.T. the Extra-Terrestrial
+George Lucas: Star Wars
+George Lucas: Return of the Jedi

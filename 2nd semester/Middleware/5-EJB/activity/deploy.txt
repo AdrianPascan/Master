@@ -1,0 +1,31 @@
+sw2-015:/afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/Example$ bash run-deploy.sh
+Kvě 05, 2022 3:55:01 ODP. org.apache.openejb.client.EventLogger log
+INFO: RemoteInitialContextCreated{providerUri=ejbd://localhost:4201}
+Kvě 05, 2022 3:55:01 ODP. org.apache.openejb.client.EventLogger log
+INFO: ConnectionOpened{uri=ejbd://localhost:4201}
+Kvě 05, 2022 3:55:01 ODP. org.apache.openejb.client.EventLogger log
+INFO: ServerAdded{server=ejbd://127.0.0.1:4201} ClusterMetaDataUpdated{provider=ejbd://localhost:4201, version=1651758886541, uris=2}
+Kvě 05, 2022 3:55:01 ODP. org.apache.openejb.client.EventLogger log
+INFO: ServerAdded{server=ejbds://127.0.0.1:4203} ClusterMetaDataUpdated{provider=ejbd://localhost:4201, version=1651758886541, uris=2}
+Kvě 05, 2022 3:55:01 ODP. org.apache.openejb.client.EventLogger log
+INFO: ServerRemoved{server=ejbd://localhost:4201} ClusterMetaDataUpdated{provider=ejbd://localhost:4201, version=1651758886541, uris=2}
+Application deployed successfully at "example.jar"
+App(id=/afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/apache-openejb-8.0.6/apps/example.jar)
+    EjbJar(id=example, path=/afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/apache-openejb-8.0.6/apps/example.jar)
+        Ejb(ejb-name=ExampleEntityBeans, id=ExampleEntityBeans)
+            Jndi(name=ExampleEntityBeansRemote)
+            Jndi(name=global/example/ExampleEntityBeans!mwy.ExampleEntities)
+            Jndi(name=global/example/ExampleEntityBeans)
+
+        Ejb(ejb-name=ExampleStatelessBean, id=ExampleStatelessBean)
+            Jndi(name=ExampleStatelessBeanRemote)
+            Jndi(name=global/example/ExampleStatelessBean!mwy.ExampleStateless)
+            Jndi(name=global/example/ExampleStatelessBean)
+
+        Ejb(ejb-name=ExampleStatefulBean, id=ExampleStatefulBean)
+            Jndi(name=ExampleStatefulBeanRemote)
+            Jndi(name=global/example/ExampleStatefulBean!mwy.ExampleStateful)
+            Jndi(name=global/example/ExampleStatefulBean)
+
+
+    PersistenceUnit(name=movie-unit, provider=org.apache.openjpa.persistence.PersistenceProviderImpl)

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source ./setenv
+mkdir -p broker
+"$ACTIVEMQ_HOME/bin/artemis" create --user admin --password secret --allow-anonymous broker

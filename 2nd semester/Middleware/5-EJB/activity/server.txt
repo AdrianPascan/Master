@@ -1,0 +1,275 @@
+ 
+sw2-015:~/Desktop/Middleware/L5/Example$ bash run-server.sh
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: ********************************************************************************
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: OpenEJB http://tomee.apache.org/
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Startup: Thu May 05 15:54:44 CEST 2022
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Copyright 1999-2018 (C) Apache OpenEJB Project, All Rights Reserved.
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Version: 8.0.6
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Build date: 20210114
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Build time: 02:27
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: ********************************************************************************
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: openejb.home = /afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/apache-openejb-8.0.6
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: openejb.base = /afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/apache-openejb-8.0.6
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created new singletonService org.apache.openejb.cdi.ThreadSingletonServiceImpl@6442b0a6
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Succeeded in installing singleton service
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Cannot find the configuration file [conf/openejb.xml].  Creating one at /afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/apache-openejb-8.0.6/conf/openejb.xml
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: TomEE configuration file is '/afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/apache-openejb-8.0.6/conf/openejb.xml'
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Configuring Service(id=Default Security Service, type=SecurityService, provider-id=Default Security Service)
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Configuring Service(id=Default Transaction Manager, type=TransactionManager, provider-id=Default Transaction Manager)
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Configuring Service(id=My DataSource, type=Resource, provider-id=Default JDBC Database)
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Configuring Service(id=My Unmanaged DataSource, type=Resource, provider-id=Default JDBC Database)
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Configuring Service(id=My Singleton Container, type=Container, provider-id=Default Singleton Container)
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Configuring Service(id=My Stateful Container, type=Container, provider-id=Default Stateful Container)
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Configuring Service(id=My Stateless Container, type=Container, provider-id=Default Stateless Container)
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'openejb.system.apps=true'
+Kvě 05, 2022 3:54:44 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating TransactionManager(id=Default Transaction Manager)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating SecurityService(id=Default Security Service)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating Resource(id=My DataSource)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating Resource(id=My Unmanaged DataSource)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating Container(id=My Singleton Container)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating Container(id=My Stateful Container)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using directory /tmp for stateful session passivation
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating Container(id=My Stateless Container)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Assembling app: openejb
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'openejb.jndiname.format={deploymentId}{interfaceType.openejbLegacyName}'
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=openejb/DeployerBusinessRemote) --> Ejb(deployment-id=openejb/Deployer)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=global/openejb/openejb/openejb/Deployer!org.apache.openejb.assembler.Deployer) --> Ejb(deployment-id=openejb/Deployer)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=global/openejb/openejb/openejb/Deployer) --> Ejb(deployment-id=openejb/Deployer)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=openejb/ConfigurationInfoBusinessRemote) --> Ejb(deployment-id=openejb/ConfigurationInfo)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=global/openejb/openejb/openejb/Deployer!org.apache.openejb.assembler.classic.cmd.ConfigurationInfo) --> Ejb(deployment-id=openejb/ConfigurationInfo)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=MEJB) --> Ejb(deployment-id=MEJB)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=global/openejb/openejb/openejb/Deployer!javax.management.j2ee.ManagementHome) --> Ejb(deployment-id=MEJB)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created Ejb(deployment-id=MEJB, ejb-name=openejb/Deployer, container=My Singleton Container)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created Ejb(deployment-id=openejb/ConfigurationInfo, ejb-name=openejb/Deployer, container=My Singleton Container)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created Ejb(deployment-id=openejb/Deployer, ejb-name=openejb/Deployer, container=My Singleton Container)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Started Ejb(deployment-id=MEJB, ejb-name=openejb/Deployer, container=My Singleton Container)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Started Ejb(deployment-id=openejb/ConfigurationInfo, ejb-name=openejb/Deployer, container=My Singleton Container)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Started Ejb(deployment-id=openejb/Deployer, ejb-name=openejb/Deployer, container=My Singleton Container)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Deployed MBean(openejb.user.mbeans:application=openejb,group=org.apache.openejb.assembler.monitoring,name=JMXDeployer)
+[init] OpenEJB Remote Server
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Deployed Application(path=openejb)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating ServerService(id=cxf)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating ServerService(id=cxf-rs)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating ServerService(id=httpejbd)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created ServicePool 'httpejbd' with (10) core threads, limited to (200) threads with a queue of (9)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating ServerService(id=ejbd)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created ServicePool 'ejbd' with (10) core threads, limited to (200) threads with a queue of (9)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating ServerService(id=admin)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created ServicePool 'admin' with (10) core threads, limited to (10) threads with a queue of (9)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating ServerService(id=multipulse)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'bind=239.255.2.3'
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'port=6142'
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating ServerService(id=ejbds)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created ServicePool 'ejbds' with (10) core threads, limited to (200) threads with a queue of (9)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating ServerService(id=multicast)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'loopback_mode=false'
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'port=6142'
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'heart_rate=500'
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'max_missed_heartbeats=10'
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created Tracker{group='default', groupPrefix='default:', heartRate=500, maxMissedHeartbeats=10, reconnectDelay=5000, maxReconnectDelay=30000, maxReconnectAttempts=10, exponentialBackoff=0, useExponentialBackOff=false, registeredServices=0, discoveredServices=0}
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating ServerService(id=multipoint)
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'port=4212'
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'initialServers='
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'heart_rate=500'
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Using 'max_missed_heartbeats=10'
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created Tracker{group='default', groupPrefix='default:', heartRate=500, maxMissedHeartbeats=10, reconnectDelay=5000, maxReconnectDelay=30000, maxReconnectAttempts=10, exponentialBackoff=0, useExponentialBackOff=false, registeredServices=0, discoveredServices=0}
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Added Service{uri=ejb:ejbd://127.0.0.1:4201}
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Added Service{uri=ejb:ejbd://127.0.0.1:4201}
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbd://127.0.0.1:4201
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbd://127.0.0.1:4201
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbd://127.0.0.1:4201
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbd://127.0.0.1:4201
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbd://127.0.0.1:4201
+Kvě 05, 2022 3:54:45 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbd://127.0.0.1:4201
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Added Service{uri=ejb:ejbds://127.0.0.1:4203}
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Added Service{uri=ejb:ejbds://127.0.0.1:4203}
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbds://127.0.0.1:4203
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbds://127.0.0.1:4203
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbds://127.0.0.1:4203
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbds://127.0.0.1:4203
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbds://127.0.0.1:4203
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Peer discovered: ejbds://127.0.0.1:4203
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: MultipointDiscoveryAgent Starting
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: MultipointServer Starting : Thread 'MultipointServer.aquamarine.4212'
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: MultipointDiscoveryAgent Started
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO:   ** Bound Services **
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO:   NAME                 IP              PORT
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO:   httpejbd             127.0.0.1       4204
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO:   ejbd                 127.0.0.1       4201
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO:   admin                127.0.0.1       4200
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO:   multipulse           239.255.2.3     6142
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO:   ejbds                127.0.0.1       4203
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO:   multicast            239.255.2.3     6142
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO:   multipoint           127.0.0.1       4212
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: -------
+Kvě 05, 2022 3:54:46 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Ready!
+Kvě 05, 2022 3:55:01 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Configuring enterprise application: /afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/apache-openejb-8.0.6/apps/example.jar
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Auto-deploying ejb ExampleEntityBeans: EjbDeployment(deployment-id=ExampleEntityBeans)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Auto-deploying ejb ExampleStatelessBean: EjbDeployment(deployment-id=ExampleStatelessBean)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Auto-deploying ejb ExampleStatefulBean: EjbDeployment(deployment-id=ExampleStatefulBean)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Configuring PersistenceUnit(name=movie-unit)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Adjusting PersistenceUnit movie-unit <jta-data-source> to Resource ID 'My DataSource' from 'movieDatabase'
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Adjusting PersistenceUnit movie-unit <non-jta-data-source> to Resource ID 'My Unmanaged DataSource' from 'movieDatabaseUnmanaged'
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Enterprise application "/afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/apache-openejb-8.0.6/apps/example.jar" loaded.
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Creating dedicated application classloader for example
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Assembling app: /afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/apache-openejb-8.0.6/apps/example.jar
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: PersistenceUnit(name=movie-unit, provider=org.apache.openjpa.persistence.PersistenceProviderImpl) - provider time 272ms
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=ExampleEntityBeansRemote) --> Ejb(deployment-id=ExampleEntityBeans)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=global/example/ExampleEntityBeans!mwy.ExampleEntities) --> Ejb(deployment-id=ExampleEntityBeans)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=global/example/ExampleEntityBeans) --> Ejb(deployment-id=ExampleEntityBeans)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=ExampleStatelessBeanRemote) --> Ejb(deployment-id=ExampleStatelessBean)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=global/example/ExampleStatelessBean!mwy.ExampleStateless) --> Ejb(deployment-id=ExampleStatelessBean)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=global/example/ExampleStatelessBean) --> Ejb(deployment-id=ExampleStatelessBean)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=ExampleStatefulBeanRemote) --> Ejb(deployment-id=ExampleStatefulBean)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=global/example/ExampleStatefulBean!mwy.ExampleStateful) --> Ejb(deployment-id=ExampleStatefulBean)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Jndi(name=global/example/ExampleStatefulBean) --> Ejb(deployment-id=ExampleStatefulBean)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created Ejb(deployment-id=ExampleEntityBeans, ejb-name=ExampleEntityBeans, container=My Stateless Container)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created Ejb(deployment-id=ExampleStatefulBean, ejb-name=ExampleStatefulBean, container=My Stateful Container)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Created Ejb(deployment-id=ExampleStatelessBean, ejb-name=ExampleStatelessBean, container=My Stateless Container)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Started Ejb(deployment-id=ExampleEntityBeans, ejb-name=ExampleEntityBeans, container=My Stateless Container)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Started Ejb(deployment-id=ExampleStatefulBean, ejb-name=ExampleStatefulBean, container=My Stateful Container)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Started Ejb(deployment-id=ExampleStatelessBean, ejb-name=ExampleStatelessBean, container=My Stateless Container)
+Kvě 05, 2022 3:55:02 ODP. org.apache.openejb.util.LogStreamAsync run
+INFO: Deployed Application(path=/afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L5/apache-openejb-8.0.6/apps/example.jar)
+Kvě 05, 2022 3:56:13 ODP. null
+INFO: Starting OpenJPA 3.1.2
+Kvě 05, 2022 3:56:13 ODP. org.hsqldb.persist.Logger logInfoEvent
+INFO: Checkpoint start
+Kvě 05, 2022 3:56:13 ODP. org.hsqldb.persist.Logger logInfoEvent
+INFO: checkpointClose start
+Kvě 05, 2022 3:56:13 ODP. org.hsqldb.persist.Logger logInfoEvent
+INFO: checkpointClose end
+Kvě 05, 2022 3:56:13 ODP. org.hsqldb.persist.Logger logInfoEvent
+INFO: Checkpoint end - txts: 1
+Kvě 05, 2022 3:56:13 ODP. null
+INFO: Using dictionary class "org.apache.openjpa.jdbc.sql.HSQLDictionary" (HSQL Database Engine 2.3.2 ,HSQL Database Engine Driver 2.3.2).
+Kvě 05, 2022 3:56:13 ODP. null
+INFO: Connected to HSQL Database Engine version 2.3 using JDBC driver HSQL Database Engine Driver version 2.3.2.

@@ -1,0 +1,251 @@
+---
+title: 'MIDDLEWARE Task 3: JMS'
+author: "Adrian Pascan"
+date: '2022-04-18'
+output: html_document
+---
+
+# Setup & info
+
+Please set the `ACTIVEMQ_HOME` variable in the *setenv* file to the home directory of your **Apache Artemis** installation.
+
+For working on the task I used Apache Artemis **2.19.1** .
+
+# Operations
+
+## New client operations
+
+### Bank account
+
+A new client requests the bank "opening" of a new account.
+
+For the **extended version**, a bank account has a balance as well which is initialized with the `Bank.INITIAL_BALANCE` value.
+
+Client:
+
+-   synchronously (`clientSession`) sends request message to the bank `toBankQueue` queue
+
+-   `TextMessage` (asynchronous)
+
+    -   text: `Bank.NEW_ACCOUNT_MSG`
+
+    -   String property: `CLIENT_NAME_PROPERTY` -\> `clientName`
+
+    -   JMS Destination: `fromBankQueue`
+
+-   synchronously (`clientSession`) waits for the bank reply message (it blocks).
+
+Bank:
+
+-   asynchronously listens for messages on `toBankQueue` queue and reacts & processes the client `TextMessage` message
+
+-   asynchronously sends reply message to the client `fromBankQueue` destination
+
+-   `TextMessage` (asynchronous): text = client account number.
+
+Client:
+
+-   synchronously (`clientSession`) receives message from the bank on the `fromBankQueue` queue and processes it.
+
+### Offers availability
+
+For the **extended version**, the new client also receives the offers from the other clients when connecting.
+
+New client:
+
+-   asynchronously (`eventSession`) sends a request message to the `OFFER_NEW_CLIENT_TOPIC` topic
+
+-   `TextMessage` (asynchronous)
+
+    -   text: `clientName`
+
+    -   JMS Destination: `offerNewClientReplyQueue`.
+
+The other clients:
+
+-   asynchronously (`eventSession`) listen to the `OFFER_NEW_CLIENT_TOPIC` topic and react to the `TextMessage` message sent by the new client & process it.
+
+-   synchronously (`clientSession`) send a message to the `offerNewClientReplyQueue` destination.
+
+-   `ObjectMessage` (synchronous)
+
+    -   String property: `CLIENT_NAME_PROPERTY` -\> `clientName`
+
+    -   object: list of offered goods.
+
+New client:
+
+-   asynchronously (`eventSession`) listen on the `offerNewClientReplyQueue` queue and react & process the `ObjectMessage` message sent by each of the other client.
+
+## Regular client operations
+
+### Account balance
+
+For the **extended version**, the client can check its balance.
+
+Client:
+
+-   synchronously (`clientSession`) sends message to the `toBankQueue` queue
+
+-   `MapMessage` (synchronous)
+
+    -   String property: `CLIENT_NAME_PROPERTY` -\> `clientName`
+
+    -   int: `Bank.ORDER_TYPE_KEY` -\> `Bank.ORDER_TYPE_CHECK` = 2
+
+    -   JMS Destination: `replyQueue`
+
+-   synchronously (`clientSession`) waits for the bank reply message (it blocks).
+
+Bank:
+
+-   asynchronously listens for messages on `toBankQueue` queue and reacts & processes the client `MapMessage` message
+
+-   asynchronously sends message to the client `replyQueue` destination
+
+-   `TextMessage`: text = account balance.
+
+Client
+
+-   synchronously (`clientSession`) receives `TextMessage` message from the bank on the `replyQueue` queue and processes it.
+
+### Buy
+
+Buyer client:
+
+-   synchronously (`clientSession`) sends a request message to the seller client sale queue `<sellerName>SaleQueue`
+
+-   `MapMessage` (asynchronous)
+
+    -   String property: `CLIENT_NAME_PROPERTY` -\> `clientName`
+
+    -   String property: `GOODS_NAME_PROPERTY` -\> goods name
+
+    -   int: `ACCOUNT_NO_KEY` -\> account number
+
+    -   JMS Destination: `replyQueue`
+
+```{=html}
+<!-- -->
+```
+-   synchronously (`clientSession`) waits for the seller client confirmation (it blocks).
+
+Seller client:
+
+-   asynchronously (`eventSession`) listens for messages on its seller queue `<sellerName>SaleQueue` and reacts & processes the buyer client `MapMessage` message
+
+-   if the goods are available, it reserves them & publishes the offered goods except for the ones that has been reserved
+
+-   synchronously (`clientSession`) sends confirmation message to the buyer client to its `replyQueue` queue
+
+-   `MapMessage` (synchronous)
+
+    -   bool: `ACCEPTED_SALE_KEY` -\> true if the goods were available, false otherwise
+
+    -   if the goods were available
+
+        -   int: `ACCOUNT_NO_KEY` -\> seller account number
+
+        -   int: `GOODS_PRICE_KEY` -\> requested goods price
+
+Buyer client:
+
+-   synchronously (`clientSession`) receives message from the bank on the `replyQueue` queue and processes it
+
+-   if buy request is not accepted, return
+
+-   synchronously (`clientSession`) sends a transfer request message to the bank to the `toBankQueue` queue
+
+-   `MapMessage` (synchronous)
+
+    -   String property: `CLIENT_NAME_PROPERTY` -\> `clientName`
+
+    -   int: `Bank.ORDER_TYPE_KEY` -\> `Bank.ORDER_TYPE_SEND` = 1
+
+    -   int: `Bank.ORDER_RECEIVER_ACC_KEY` -\> seller account
+
+    -   int: `Bank.AMOUNT_KEY` -\> price.
+
+-   synchronously (`clientSession`) waits for the seller client confirmation (it blocks).
+
+Bank:
+
+-   asynchronously listens for messages on `toBankQueue` queue and reacts & processes the buyer client `MapMessage` message
+
+-   asynchronously sends report message to the seller client `fromBankQueue` queue
+
+-   `MapMessage` (asynchronous)
+
+    -   int: `Bank.REPORT_TYPE_KEY` -\> `Bank.REPORT_TYPE_RECEIVED` = 1
+
+    -   int: `Bank.REPORT_SENDER_ACC_KEY` -\> buyer account
+
+    -   int: `Bank.AMOUNT_KEY`
+
+        -   **basic version**: goods price
+
+        -   **extended version**
+
+            -   goods price, if buyer client account balance was at least the goods price
+
+            -   0, otherwise.
+
+Seller client:
+
+-   asynchronously (`eventSession`) listens for messages on `fromBankQueue` queue and reacts & processes the bank `MapMessage` message
+
+-   if amount of transferred money does not cover the price of requested goods, put back the requested goods in the seller offer and publish it
+
+-   synchronously (`clientSession`) sends confirmation message to the `replyQueue` queue of the buyer client
+
+    -   **basic version**
+
+        -   `TextMessage` (synchronous): text = goods name
+
+    -   **extended version**
+
+        -   `MapMessage` (synchronous)
+
+            -   String property: `GOODS_NAME_PROPERTY` -\> goods name
+
+            -   bool: `ACCEPTED_SALE_KEY` -\> true if amount of transferred money covers the price of requested goods else false
+
+Buyer client:
+
+-   synchronously (`clientSession`) receives message from the bank on the `replyQueue` queue and processes it
+
+### Publish goods
+
+Client:
+
+-   synchronously (`clientSession`) sends a message to the `OFFER_TOPIC` topic
+
+-   `ObjectMessage`
+
+    -   String property: `CLIENT_NAME_PROPERTY` -\> `clientName`
+
+    -   object: list of offered goods.
+
+The other clients:
+
+-   asynchronously (`eventSession`) listen to the `OFFER_TOPIC` topic and react to the message sent by the client & process it.
+
+### Disconnect
+
+Client publishes an empty list of goods.
+
+# Concurrency
+
+In order to avoid concurrency issues, I targeted two situations where they may appear: reserving goods and transferring money, the related variables being `Bank.accountsBalances` and `Client.offeredGoods` respectivelly.
+
+### Reserving goods
+
+In the **basic variant**, when reserving goods, if two buyers request the same goods then it might happen that checking if the goods are available returns true for both of them, but on the actual reservation attempt only one of the two actually reserve the goods while the other gets a null reference.
+
+In order to solve this issue in the **extended variant**, I used a `ConcurrentHashMap` instead of `HashMap` for `Client.offeredGoods` and avoided the check and reserve gap by directly calling the `remove` method which either returns the previously mapped object by the input key OR a null reference if the map does not have an entry for the input key.
+
+### Transferring money
+
+In the **basic variant**, when transferring money, it might be the case that two transactions transfer money from the same account which leads to inconsistencies.
+
+In order to solve this issue in the **extended variant**, I used a `ConcurrentHashMap` instead of `HashMap` for `Bank.accountsBalances`. On balance updates, I used the `compute` method which locks the map object and updates the value for the input key according to the `BiFunction` given as parameter.

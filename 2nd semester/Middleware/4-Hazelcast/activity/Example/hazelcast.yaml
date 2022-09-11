@@ -1,0 +1,20 @@
+hazelcast:
+    network:
+        # Make sure we use localhost address
+        interfaces:
+            enabled: true
+            interfaces: [127.0.0.1]
+        # Join the first localhost member
+        # The first member will have address 127.0.0.1:5701
+        # The following will have port 5702 and so on
+        join:
+            multicast:
+                enabled: false
+            tcp-ip:
+                enabled: true
+                members:
+                    127.0.0.1:5701
+    map:
+        Example: {
+            # Put configuration of the Example map here
+        }

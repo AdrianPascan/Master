@@ -1,0 +1,108 @@
+sw2-013:/afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L4/Example$ bash run-member.sh B
+Dub 21, 2022 4:26:03 ODP. com.hazelcast.config.FileSystemYamlConfig
+INFO: Configuring Hazelcast from '/afs/ms.mff.cuni.cz/u/p/pascana/Desktop/Middleware/L4/Example/hazelcast.yaml'.
+Dub 21, 2022 4:26:03 ODP. com.hazelcast.instance.AddressPicker
+INFO: [LOCAL] [dev] [5.1.1] Interfaces is enabled, trying to pick one address matching to one of: [127.0.0.1, 127.0.0.1]
+Dub 21, 2022 4:26:03 ODP. com.hazelcast.system.logo
+INFO: [127.0.0.1]:5702 [dev] [5.1.1]
+        +       +  o    o     o     o---o o----o o      o---o     o     o----o o--o--o
+        + +   + +  |    |    / \       /  |      |     /         / \    |         |
+        + + + + +  o----o   o   o     o   o----o |    o         o   o   o----o    |
+        + +   + +  |    |  /     \   /    |      |     \       /     \       |    |
+        +       +  o    o o       o o---o o----o o----o o---o o       o o----o    o
+Dub 21, 2022 4:26:03 ODP. com.hazelcast.system
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Copyright (c) 2008-2022, Hazelcast, Inc. All Rights Reserved.
+Dub 21, 2022 4:26:03 ODP. com.hazelcast.system
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Hazelcast Platform 5.1.1 (20220317 - 5b5fa10) starting at [127.0.0.1]:5702
+Dub 21, 2022 4:26:03 ODP. com.hazelcast.system
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Cluster name: dev
+Dub 21, 2022 4:26:03 ODP. com.hazelcast.system
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Integrity Checker is disabled. Fail-fast on corrupted executables will not be performed.
+To enable integrity checker do one of the following:
+  - Change member config using Java API: config.setIntegrityCheckerEnabled(true);
+  - Change XML/YAML configuration property: Set hazelcast.integrity-checker.enabled to true
+  - Add system property: -Dhz.integritychecker.enabled=true (for Hazelcast embedded, works only when loading config via Config.load)
+  - Add environment variable: HZ_INTEGRITYCHECKER_ENABLED=true (recommended when running container image. For Hazelcast embedded, works only when loading config via Config.load)
+Dub 21, 2022 4:26:03 ODP. com.hazelcast.system
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] The Jet engine is disabled.
+To enable the Jet engine on the members, do one of the following:
+  - Change member config using Java API: config.getJetConfig().setEnabled(true)
+  - Change XML/YAML configuration property: Set hazelcast.jet.enabled to true
+  - Add system property: -Dhz.jet.enabled=true (for Hazelcast embedded, works only when loading config via Config.load)
+  - Add environment variable: HZ_JET_ENABLED=true (recommended when running container image. For Hazelcast embedded, works only when loading config via Config.load)
+Dub 21, 2022 4:26:04 ODP. com.hazelcast.system.security
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Enable DEBUG/FINE log level for log category com.hazelcast.system.security  or use -Dhazelcast.security.recommendations system property to see 🔒 security recommendations and the status of current config.
+Dub 21, 2022 4:26:04 ODP. com.hazelcast.instance.impl.Node
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Using TCP/IP discovery
+Dub 21, 2022 4:26:04 ODP. com.hazelcast.cp.CPSubsystem
+WARNING: [127.0.0.1]:5702 [dev] [5.1.1] CP Subsystem is not enabled. CP data structures will operate in UNSAFE mode! Please note that UNSAFE mode will not provide strong consistency guarantees.
+Dub 21, 2022 4:26:04 ODP. com.hazelcast.internal.diagnostics.Diagnostics
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Diagnostics disabled. To enable add -Dhazelcast.diagnostics.enabled=true to the JVM arguments.
+Dub 21, 2022 4:26:04 ODP. com.hazelcast.core.LifecycleService
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] [127.0.0.1]:5702 is STARTING
+Dub 21, 2022 4:26:04 ODP. com.hazelcast.internal.server.tcp.TcpServerConnection
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Initialized new cluster connection between /127.0.0.1:35113 and /127.0.0.1:5701
+Dub 21, 2022 4:26:09 ODP. com.hazelcast.internal.cluster.ClusterService
+INFO: [127.0.0.1]:5702 [dev] [5.1.1]
+
+Members {size:2, ver:2} [
+        Member [127.0.0.1]:5701 - 06aa8376-22bc-4d04-a2fc-93b5966763d6
+        Member [127.0.0.1]:5702 - fc8fb00f-5f63-4915-aef1-d105e7c65ccf this
+]
+
+Dub 21, 2022 4:26:09 ODP. com.hazelcast.core.LifecycleService
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] [127.0.0.1]:5702 is STARTED
+Press enter to exit
+Dub 21, 2022 4:27:58 ODP. com.hazelcast.internal.cluster.ClusterService
+INFO: [127.0.0.1]:5702 [dev] [5.1.1]
+
+Members {size:3, ver:3} [
+        Member [127.0.0.1]:5701 - 06aa8376-22bc-4d04-a2fc-93b5966763d6
+        Member [127.0.0.1]:5702 - fc8fb00f-5f63-4915-aef1-d105e7c65ccf this
+        Member [127.0.0.1]:5703 - 1f915e6d-090b-48e3-bb93-e19ea73168b0
+]
+
+Dub 21, 2022 4:27:58 ODP. com.hazelcast.internal.server.tcp.TcpServerConnection
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Initialized new cluster connection between /127.0.0.1:35841 and /127.0.0.1:5703
+Dub 21, 2022 4:29:04 ODP. com.hazelcast.client.impl.protocol.task.AuthenticationMessageTask
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Received auth from Connection[id=3, /127.0.0.1:5702->/127.0.0.1:51033, qualifier=null, endpoint=[127.0.0.1]:51033, remoteUuid=4b2dfd04-0090-44c2-97b1-0d96fd30d9a1, alive=true, connectionType=JVM, planeIndex=-1], successfully authenticated, clientUuid: 4b2dfd04-0090-44c2-97b1-0d96fd30d9a1, client name: hz.client_1, client version: 5.1.1
+This member owns key C8 with value elegant_hertz
+This member owns key C2 with value elegant_hertz
+This member owns key C7 with value elegant_hertz
+This member owns key C9 with value elegant_hertz
+This member owns key B8 with value quizzical_roentgen
+This member owns key A2 with value friendly_elion
+This member owns key B5 with value quizzical_roentgen
+This member owns key B1 with value quizzical_roentgen
+This member owns key B3 with value quizzical_roentgen
+This member owns key B4 with value quizzical_roentgen
+This member owns key A7 with value friendly_elion
+This member owns key A1 with value friendly_elion
+This member owns key A5 with value friendly_elion
+This member owns key B0 with value quizzical_roentgen
+This member owns key B6 with value quizzical_roentgen
+This member owns key C3 with value elegant_hertz
+This member owns key A6 with value friendly_elion
+This member owns key A9 with value friendly_elion
+This member owns key A8 with value friendly_elion
+Dub 21, 2022 4:29:05 ODP. com.hazelcast.internal.server.tcp.TcpServerConnection
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Connection[id=3, /127.0.0.1:5702->/127.0.0.1:51033, qualifier=null, endpoint=[127.0.0.1]:51033, remoteUuid=4b2dfd04-0090-44c2-97b1-0d96fd30d9a1, alive=false, connectionType=JVM, planeIndex=-1] closed. Reason: Connection closed by the other side
+Dub 21, 2022 4:29:05 ODP. com.hazelcast.client.impl.ClientEndpointManager
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Destroying ClientEndpoint{connection=Connection[id=3, /127.0.0.1:5702->/127.0.0.1:51033, qualifier=null, endpoint=[127.0.0.1]:51033, remoteUuid=4b2dfd04-0090-44c2-97b1-0d96fd30d9a1, alive=false, connectionType=JVM, planeIndex=-1], clientUuid=4b2dfd04-0090-44c2-97b1-0d96fd30d9a1, clientName=hz.client_1, authenticated=true, clientVersion=5.1.1, creationTime=1650551344827, latest clientAttributes=lastStatisticsCollectionTime=1650551344873,enterprise=false,clientType=JVM,clientVersion=5.1.1,clusterConnectionTimestamp=1650551344823,clientAddress=127.0.0.1,clientName=hz.client_1,credentials.principal=null,os.committedVirtualMemorySize=7950561280,os.freePhysicalMemorySize=9559248896,os.freeSwapSpaceSize=10737414144,os.maxFileDescriptorCount=8192,os.openFileDescriptorCount=20,os.processCpuTime=1370000000,os.systemLoadAverage=0.33,os.totalPhysicalMemorySize=14605381632,os.totalSwapSpaceSize=10737414144,runtime.availableProcessors=8,runtime.freeMemory=206651224,runtime.maxMemory=3247439872,runtime.totalMemory=219152384,runtime.uptime=684,runtime.usedMemory=12501160, labels=[]}
+
+Dub 21, 2022 4:29:19 ODP. com.hazelcast.core.LifecycleService
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] [127.0.0.1]:5702 is SHUTTING_DOWN
+Dub 21, 2022 4:29:19 ODP. com.hazelcast.instance.impl.Node
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Shutting down connection manager...
+Dub 21, 2022 4:29:19 ODP. com.hazelcast.internal.server.tcp.TcpServerConnection
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Connection[id=2, /127.0.0.1:35841->/127.0.0.1:5703, qualifier=null, endpoint=[127.0.0.1]:5703, remoteUuid=1f915e6d-090b-48e3-bb93-e19ea73168b0, alive=false, connectionType=MEMBER, planeIndex=0] closed. Reason: TcpServer is stopping
+Dub 21, 2022 4:29:19 ODP. com.hazelcast.internal.server.tcp.TcpServerConnection
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Connection[id=1, /127.0.0.1:35113->/127.0.0.1:5701, qualifier=null, endpoint=[127.0.0.1]:5701, remoteUuid=06aa8376-22bc-4d04-a2fc-93b5966763d6, alive=false, connectionType=MEMBER, planeIndex=0] closed. Reason: TcpServer is stopping
+Dub 21, 2022 4:29:19 ODP. com.hazelcast.instance.impl.Node
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Shutting down node engine...
+Dub 21, 2022 4:29:19 ODP. com.hazelcast.instance.impl.NodeExtension
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Destroying node NodeExtension.
+Dub 21, 2022 4:29:19 ODP. com.hazelcast.instance.impl.Node
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] Hazelcast Shutdown is completed in 229 ms.
+Dub 21, 2022 4:29:19 ODP. com.hazelcast.core.LifecycleService
+INFO: [127.0.0.1]:5702 [dev] [5.1.1] [127.0.0.1]:5702 is SHUTDOWN

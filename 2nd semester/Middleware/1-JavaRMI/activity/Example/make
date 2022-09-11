@@ -1,0 +1,8 @@
+export CLASSPATH=.
+
+echo '---> Compiling all Java source...'
+javac *.java
+
+#We don't run RMIC anymore
+#echo '---> Running RMIC (deprecated for Java 8)'
+#rmic -keep ExampleImpl
