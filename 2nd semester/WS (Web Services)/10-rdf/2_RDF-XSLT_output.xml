@@ -1,0 +1,25 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix common: <http://www.w3.org/2007/uwa/context/deliverycontext.owl#> .
+@prefix lgdo: <http://linkedgeodata.org/ontology/> .
+@prefix my: <https://my.org/> .
+
+<http://localhost:8080/WS8_T1/rest/insurances/WW012345> a lgdo:Insurance ;
+    common:active "false"^^xsd:boolean ;
+    my:allowance "0"^^xsd:int ;
+    common:id "WW012345" .
+
+<http://localhost:8080/WS8_T1/rest/insurances/YY012345> a lgdo:Insurance ;
+    common:active "true"^^xsd:boolean ;
+    my:allowance "1000"^^xsd:int ;
+    common:id "YY012345" .
+
+<http://localhost:8080/WS8_T1/rest/insurances/XX012345> a lgdo:Insurance ;
+    common:active "false"^^xsd:boolean ;
+    my:allowance "100"^^xsd:int ;
+    common:id "XX012345" .
+
+<http://localhost:8080/WS8_T1/rest/insurances/ZZ012345> a lgdo:Insurance ;
+    common:active "true"^^xsd:boolean ;
+    my:allowance "9999"^^xsd:int ;
+    common:id "ZZ012345" .
