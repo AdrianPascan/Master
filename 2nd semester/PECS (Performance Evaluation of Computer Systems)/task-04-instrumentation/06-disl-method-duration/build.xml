@@ -1,0 +1,25 @@
+<project name="disl-example" default="run" basedir=".">
+	<target name="clean">
+		<ant antfile="measure/build.xml" target="clean" useNativeBasedir="true" />
+		<ant antfile="string/build.xml" target="clean" useNativeBasedir="true" />
+		<ant antfile="dispatch/build.xml" target="clean" useNativeBasedir="true" />
+		<ant antfile="dynamic/build.xml" target="clean" useNativeBasedir="true" />
+		<ant antfile="guard/build.xml" target="clean" useNativeBasedir="true" />
+		<ant antfile="marker/build.xml" target="clean" useNativeBasedir="true" />
+		<ant antfile="scope/build.xml" target="clean" useNativeBasedir="true" />
+		<ant antfile="smoke/build.xml" target="clean" useNativeBasedir="true" />
+		<ant antfile="static/build.xml" target="clean" useNativeBasedir="true" />
+	</target>
+	
+	<target name="run">
+		<ant antfile="measure/build.xml" target="run" useNativeBasedir="true" />
+		<ant antfile="string/build.xml" target="run" useNativeBasedir="true" />
+		<ant antfile="dispatch/build.xml" target="run" useNativeBasedir="true" />
+		<ant antfile="dynamic/build.xml" target="run" useNativeBasedir="true" />
+		<ant antfile="guard/build.xml" target="run" useNativeBasedir="true" />
+		<ant antfile="marker/build.xml" target="run" useNativeBasedir="true" />
+		<ant antfile="scope/build.xml" target="run" useNativeBasedir="true" />
+		<ant antfile="smoke/build.xml" target="run" useNativeBasedir="true" />
+		<ant antfile="static/build.xml" target="run" useNativeBasedir="true" />
+	</target>
+</project>

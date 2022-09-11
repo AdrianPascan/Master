@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./pin -t source/tools/SimpleExamples/obj-intel64/my.so -- $@
