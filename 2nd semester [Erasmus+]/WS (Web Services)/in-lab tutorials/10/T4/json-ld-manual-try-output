@@ -1,0 +1,25 @@
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/iana/media-types/>
+  a dc:MediaType ;
+  dc:title ""^^xsd:string .
+
+<https://example.org/iana/media-types/application/1d-interleaved-parityfec>
+  a dc:MediaType ;
+  dc:title "application/1d-interleaved-parityfec"^^xsd:string .
+
+<https://example.org/iana/media-types/application/3gpdash-qoe-report+xml>
+  a dc:MediaType ;
+  dc:issued "2014-04-16"^^xsd:date ;
+  dc:title "application/3gpdash-qoe-report+xml"^^xsd:string .
+
+<https://example.org/iana/media-types/application/3gpp-ims+xml>
+  a dc:MediaType ;
+  dc:title "application/3gpp-ims+xml"^^xsd:string .
+
+<https://example.org/iana/media-types/application/3gppHal+json>
+  a dc:MediaType ;
+  dc:issued "2021-04-28"^^xsd:date ;
+  dc:title "application/3gppHal+json"^^xsd:string .
+

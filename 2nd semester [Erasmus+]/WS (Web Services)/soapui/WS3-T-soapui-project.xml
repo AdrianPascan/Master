@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="39493c7e-c9ad-4775-82f6-cf768b3722ae" activeEnvironment="Default" name="WS3_T" resourceRoot="" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="fc825826-1680-4c42-b10b-fd3c57e3e439" wsaVersion="NONE" name="addBinding" type="wsdl" bindingName="{http://tempuri.org/}addBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/Adrian/OneDrive%20-%20Universitatea%20Babeş-Bolyai/Master/WS/tutorials/3/WS3_T1.xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\Users\Adrian\OneDrive%20-%20Universitatea%20Babeş-Bolyai\Master\WS\tutorials\3\WS3_T1.xml"><con:part><con:url>file:\C:\Users\Adrian\OneDrive%20-%20Universitatea%20Babeş-Bolyai\Master\WS\tutorials\3\WS3_T1.xml</con:url><con:content><![CDATA[<definitions targetNamespace="http://tempuri.org/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <documentation/>
+  <!--types (0,1)-->
+  <types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <xs:element name="Add">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="intA" type="xs:int"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="intB" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="AddResult" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <!--messages (0,*)-->
+  <message name="addRequest">
+    <part name="addPart" element="tns:Add"></part>
+  </message>
+  <message name="addResponse">
+    <part name="AddResult" element="tns:AddResult"></part>
+  </message>
+  <!--port types (0,*)-->
+  <portType name="addPortType">
+    <operation name="addOperation">
+      <input message="tns:addRequest"/>
+      <output message="tns:addResponse"/>
+    </operation>
+  </portType>
+  <!--bindings (0,*)-->
+  <binding name="addBinding" type="tns:addPortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="addOperation">
+      <wsdlsoap:operation soapAction="http://tempuri.org/Add"/>
+      <input>
+        <wsdlsoap:body use="literal"/>
+      </input>
+      <output>
+        <wsdlsoap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--services (0,*)-->
+  <service name="CalculatorService">
+    <port binding="tns:addBinding" name="Calculator">
+      <wsdlsoap:address location="http://www.dneonline.com/calculator.asmx"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://www.dneonline.com/calculator.asmx</con:endpoint></con:endpoints><con:operation id="309cfbac-6d8d-43a3-9cab-0f1d933409af" isOneWay="false" action="http://tempuri.org/Add" name="addOperation" bindingOperationName="addOperation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ba13c1c5-10a6-4042-b018-10cf57aa9f20" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.dneonline.com/calculator.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:Add>\r
+         <tem:intA>1</tem:intA>\r
+         <tem:intB>2</tem:intB>\r
+      </tem:Add>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/Add"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

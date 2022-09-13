@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6a379efd-1794-402d-91b3-eb0236277401" activeEnvironment="Default" name="WS7_T2" resourceRoot="" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="ff571b85-5c46-4cac-b20d-3b8e40bac4ef" wsaVersion="NONE" name="MultiSOAPBinding" type="wsdl" bindingName="{http://nswi145/Calc2/wsdl}MultiSOAPBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/ode/processes/CustomCalc2Muli?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/ode/processes/CustomCalc2Muli?wsdl"><con:part><con:url>http://localhost:8080/ode/processes/CustomCalc2Muli?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://nswi145/Calc2/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tnsxsd="http://nswi145/Calc2/xsd" xmlns:tns="http://nswi145/Calc2/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:calc="http://tempuri.org/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://nswi145/Calc2/xsd">
+      <xsd:element name="calcIn" type="xsd:integer"/>
+      <xsd:element name="calcOut" type="xsd:integer"/>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/">
+      <xsd:element name="Add">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="intA" type="xsd:int"/>
+            <xsd:element name="intB" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AddResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="AddResult" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Subtract">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="intA" type="xsd:int"/>
+            <xsd:element name="intB" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SubtractResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="SubtractResult" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Multiply">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="intA" type="xsd:int"/>
+            <xsd:element name="intB" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="MultiplyResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="MultiplyResult" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Divide">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="intA" type="xsd:int"/>
+            <xsd:element name="intB" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DivideResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="DivideResult" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="MultiplySoapOut">
+    <wsdl:part name="parameters" element="calc:MultiplyResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="CustomCalc2MuliPortType">
+    <wsdl:operation name="multiplyOperation">
+      <wsdl:input message="tns:MultiplySoapOut" wsaw:Action="urn:multiplyResponseOperation"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MultiSOAPBinding" type="tns:CustomCalc2MuliPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="multiplyOperation">
+      <soap:operation soapAction="urn:multiplyResponseOperation" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CustomCalc2Muli">
+    <wsdl:port name="MultPort" binding="tns:MultiSOAPBinding">
+      <soap:address location="http://localhost:8080/ode/processes/CustomCalc2Muli.MultPort/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/ode/processes/CustomCalc2Muli.MultPort/</con:endpoint></con:endpoints><con:operation id="382ab227-6d40-44bc-80ae-df80168cffa2" isOneWay="false" action="urn:multiplyResponseOperation" name="multiplyOperation" bindingOperationName="multiplyOperation" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c1f72524-acf9-4e8e-873d-1e83c916505b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ode/processes/CustomCalc2Muli.MultPort/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:MultiplyResponse>\r
+         <tem:MultiplyResult>10</tem:MultiplyResult>\r
+      </tem:MultiplyResponse>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:multiplyResponseOperation"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

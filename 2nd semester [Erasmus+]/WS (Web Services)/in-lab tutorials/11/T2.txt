@@ -1,0 +1,7 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT DISTINCT *
+WHERE
+{
+?s a skos:ConceptScheme .
+OPTIONAL {?s skos:prefLabel ?label . }
+}

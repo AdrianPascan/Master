@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://nswi145/Calc1/wsdl" xmlns:tnsxsd="http://nswi145/Calc1/xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://nswi145/Calc1/wsdl">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://nswi145/Calc1/xsd">
+			<xsd:element name="calcIn" type="xsd:integer"/>
+			<xsd:element name="calcOut" type="xsd:integer"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CalcInputMessage">
+		<wsdl:part name="parameters" element="tnsxsd:calcIn"/>
+	</wsdl:message>
+	<wsdl:message name="CalcOutputMessage">
+		<wsdl:part name="parameters" element="tnsxsd:calcOut"/>
+	</wsdl:message>
+	<wsdl:portType name="CalcPortType">
+		<wsdl:operation name="calculateSomething">
+			<wsdl:input name="CalcIn" message="tns:CalcInputMessage"/>
+			<wsdl:output name="CalcOut" message="tns:CalcOutputMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CustomCalcSOAPBinding" type="tns:CalcPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="calculateSomething">
+			<soap:operation soapAction="urn:calculateSomething" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="CustomCalcService">
+		<wsdl:port name="CalcPort" binding="tns:CustomCalcSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/CustomCalc1"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!--
+    Declares a link type connecting a client with this service via CalcPortType 
+  -->
+	<plnk:partnerLinkType name="CalcLinkType">
+		<plnk:role name="CustomCalcExecutorRole" portType="tns:CalcPortType"/>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

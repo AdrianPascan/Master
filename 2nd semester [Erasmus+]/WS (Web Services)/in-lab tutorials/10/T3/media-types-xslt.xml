@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xpath-default-namespace="http://www.iana.org/assignments">
+    <xsl:output method="text" encoding="UTF-8" indent="no"/>
+    <xsl:variable name="prefix">https://example.org/iana/media-types/</xsl:variable>
+   
+    <xsl:template match="registry[@id='media-types']">
+    @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+    @prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+    @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+    <xsl:apply-templates/>
+   
+    </xsl:template>
+   
+    <xsl:template match="record">
+        <xsl:variable name="currentURI" select="concat($prefix, file)"/>
+    &lt;<xsl:value-of select="$currentURI"/>&gt; a dcterms:MediaType ;<xsl:if test="@date">
+        dcterms:issued &quot;<xsl:value-of select="@date"/>&quot;^^xsd:date ;</xsl:if>
+        dcterms:title &quot;<xsl:value-of select="file"/>&quot; .
+    </xsl:template>
+   
+    <xsl:template match="text()"/>
+   
+</xsl:stylesheet>

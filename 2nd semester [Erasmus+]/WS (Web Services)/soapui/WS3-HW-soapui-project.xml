@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="2f203eb9-8db0-436b-b2cc-7db3438d3006" activeEnvironment="Default" name="WS3_HW" resourceRoot="" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="ac770c41-2b8b-4661-af86-4c964c49ac42" wsaVersion="NONE" name="CalculatorBinding" type="wsdl" bindingName="{http://ws/}CalculatorBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/Adrian/OneDrive%20-%20Universitatea%20Babeş-Bolyai/Master/WS/tutorials/3/WS3_HW.xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\Users\Adrian\OneDrive%20-%20Universitatea%20Babeş-Bolyai\Master\WS\tutorials\3\WS3_HW.xml"><con:part><con:url>file:\C:\Users\Adrian\OneDrive%20-%20Universitatea%20Babeş-Bolyai\Master\WS\tutorials\3\WS3_HW.xml</con:url><con:content><![CDATA[<definitions targetNamespace="http://ws/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <documentation/>
+  <!--types (0,1)-->
+  <types>
+    <xs:schema targetNamespace="http://ws/">
+      <xs:element name="subtract">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="arg0" type="xs:int"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="arg1" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="subtractResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="return" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <!--messages (0,*)-->
+  <message name="subtract">
+    <part element="tns:subtract" name="subtractParameters"/>
+  </message>
+  <message name="subtractResponse">
+    <part element="tns:subtractResponse" name="subtractResponseParams"/>
+  </message>
+  <!--port types (0,*)-->
+  <portType name="CalculatorPortType">
+    <operation name="subtract">
+      <input message="tns:subtract"/>
+      <output message="tns:subtractResponse"/>
+    </operation>
+  </portType>
+  <!--bindings (0,*)-->
+  <binding name="CalculatorBinding" type="tns:CalculatorPortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="subtract">
+      <input>
+        <wsdlsoap:body use="literal"/>
+      </input>
+      <output>
+        <wsdlsoap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--services (0,*)-->
+  <service name="CalculatorService">
+    <port binding="tns:CalculatorBinding" name="CalculatorPort">
+      <wsdlsoap:address location="http://127.0.0.1:8000/Calculator"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://127.0.0.1:8000/Calculator</con:endpoint></con:endpoints><con:operation id="671c3c00-d87b-4254-945b-c4304a8b72dc" isOneWay="false" action="" name="subtract" bindingOperationName="subtract" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="081005b0-0a22-4085-80ef-1ef8a35ac5ea" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8000/Calculator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ws:subtract>\r
+         <arg0>1000</arg0>\r
+         <arg1>1</arg1>\r
+      </ws:subtract>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws/CalculatorPortType/subtractRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

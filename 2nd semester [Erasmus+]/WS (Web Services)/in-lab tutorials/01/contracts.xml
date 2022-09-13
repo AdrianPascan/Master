@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dump>
+	<year>2017</year>
+	<month>1</month>
+	<day>1</day>
+	<timeOfGeneration>2017-02-17T00:17:45+01:00</timeOfGeneration>
+	<contracts>
+		<contract id="c1">
+			<uri>https://smlouvy.gov.cz/smlouva/1153037</uri>
+			<publishTime>2017-02-01T00:13:13+01:00</publishTime>
+			<contractData>
+				<title>Pomocné práce v závodní jídelně</title>
+				<price>35678</price>
+				<subject>
+					<name>Česká republika - Ministerstvo životního prostředí</name>
+					<id>00164801</id>
+					<address>
+						<street>Vršovická 1442/65</street>
+						<postCode>10010</postCode>
+						<city>Praha</city>
+						<country>Czech Republic</country>
+					</address>
+				</subject>
+				<party>
+					<name>Kamil Mavale</name>
+					<id>67416501</id>
+					<address>
+						<street>Pernerova 536/63</street>
+						<postCode>18600</postCode>
+						<city>Praha</city>
+						<country>Czech Republic</country>
+					</address>
+				</party>
+				<publisher>Ing. Miroslava Mirešová, ředitelka odboru vnitřní správy</publisher>
+			</contractData>
+		</contract>
+		<contract id="c2">
+			<uri>https://smlouvy.gov.cz/smlouva/1153341</uri>
+			<publishTime>2017-02-01T07:33:14+01:00</publishTime>
+			<contractData>
+				<title>Smlouva o projektové přípravě (akce III/3963, ul.Rakšická)</title>
+				<price>108900</price>
+				<subject>
+					<name>Město Moravský Krumlov</name>
+					<id>00293199</id>
+					<address>
+						<street>nám. Klášterní 125</street>
+						<postCode>67201</postCode>
+						<city>Moravský Krumlov</city>
+						<country>Czech Republic</country>
+					</address>
+				</subject>
+				<party>
+					<name>Sivio Plan, s.r.o.</name>
+					<id>27738809</id>
+					<address>
+						<street>Sochorova 3178/23</street>
+						<postCode>61600</postCode>
+						<city>Brno</city>
+						<country>Czech Republic</country>
+					</address>
+				</party>
+			</contractData>
+		</contract>
+		<contract id="c3">
+			<uri>https://smlouvy.gov.cz/smlouva/1153345</uri>
+			<publishTime>2017-02-01T07:33:39+01:00</publishTime>
+			<contractData>
+				<title>Dohoda o zabezpečení vzdělávací aktivity zaměstnanců a potencionálních zaměstnanců a poskytnutí příspěvku v rámci projektu "POVEZ II" č. CVA-MN-26/2016</title>
+				<price>2159400</price>
+				<subject>
+					<name>Úřad práce ČR - krajská pobočka v Ústí nad Labem</name>
+					<id>72496991</id>
+					<address>
+						<street>Cihlářská 4107</street>
+						<postCode>43003</postCode>
+						<city>Chomutov</city>
+						<country>Czech Republic</country>
+					</address>
+				</subject>
+				<party>
+					<name>Etalon Industries s.r.o.</name>
+					<id>26729610</id>
+					<address>
+						<street>Karlovarská 5578</street>
+						<postCode>43001</postCode>
+						<city>Chomutov</city>
+						<country>Czech Republic</country>
+					</address>
+				</party>
+				<publisher>Mgr. et Mgr. Robert Galadriel</publisher>
+			</contractData>
+		</contract>
+	</contracts>
+	<attachments>
+		<attachment ref="c1">
+			<fileName>Pomocné práce v jídelně - smlouva a dodatek č. 1-10 - pro ISRS.pdf</fileName>
+			<hash type="SHA-256">cbd2c7c33a4ebd176612452ef452d1b5f38dc9c788965699ab53136b8bd84634</hash>
+			<uri>https://smlouvy.gov.cz/smlouva/soubor/1687549/050008%20Pomocn20ISRS.pdf</uri>
+			<uri>https://smlouvy.gov.cz/smlouva/soubor/1687549/050008%20Pomocn20ISRS_en.pdf</uri>
+			<uri>https://smlouvy.gov.cz/smlouva/soubor/1687549/050008%20Pomocn20ISRS_de.pdf</uri>
+		</attachment>				
+		<attachment ref="c2">
+			<fileName>005_2017_smlouva_v0.pdf</fileName>
+			<hash type="SHA-256">7e0ab89ea8d952aeca176214b6a38a463b23bcd31f6dd6a9e17f89d0691f668a</hash>
+			<uri>https://smlouvy.gov.cz/smlouva/soubor/1647989/005_2017_smlouva_v0.pdf</uri>
+			<uri>https://smlouvy.gov.cz/smlouva/soubor/1647989/005_2017_smlouva_v0_en.pdf</uri>
+		</attachment>
+		<attachment ref="c3">
+			<fileName>fRkDohodaZam1.pdf</fileName>
+			<hash type="SHA-512">4594f312b85eaabeb769ffa85cf239fe40124901d65cb383c4fff780f06f0bf6</hash>
+			<uri>https://smlouvy.gov.cz/smlouva/soubor/1687913/fRkDohodaZam1.pdf</uri>
+			<uri>https://smlouvy.gov.cz/smlouva/soubor/1687913/fRkDohodaZam1_it.pdf</uri>
+			<uri>https://smlouvy.gov.cz/smlouva/soubor/1687913/fRkDohodaZam1_fr.pdf</uri>
+			<uri>https://smlouvy.gov.cz/smlouva/soubor/1687913/fRkDohodaZam1_de.pdf</uri>
+		</attachment>
+	</attachments>
+</dump>

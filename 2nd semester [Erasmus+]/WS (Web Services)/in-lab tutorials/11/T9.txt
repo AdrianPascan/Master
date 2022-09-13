@@ -1,0 +1,10 @@
+PREFIX schema: <http://schema.org/>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+SELECT ?check ?fine ?bigger
+WHERE
+{
+?check a schema:CheckAction ;
+   schema:result/schema:result/gr:hasCurrencyValue ?fine .
+BIND(IF(?fine > 1000, true, false) as ?bigger)
+}
+LIMIT 100

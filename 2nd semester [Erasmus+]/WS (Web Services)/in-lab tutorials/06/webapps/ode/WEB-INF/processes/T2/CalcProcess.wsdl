@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://nswi145/Calc2/wsdl" 
+   xmlns:tnsxsd="http://nswi145/Calc2/xsd" 
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+   xmlns:calc="http://tempuri.org/"
+   targetNamespace="http://nswi145/Calc2/wsdl">
+    <wsdl:import location="calculator.wsdl"
+      namespace="http://tempuri.org/" />
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://nswi145/Calc2/xsd">
+			<xsd:element name="calcIn" type="xsd:integer"/>
+			<xsd:element name="calcOut" type="xsd:integer"/>
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="CalcInputMessage">
+		<wsdl:part name="parameters" element="tnsxsd:calcIn"/>
+	</wsdl:message>
+	<wsdl:message name="CalcOutputMessage">
+		<wsdl:part name="parameters" element="tnsxsd:calcOut"/>
+	</wsdl:message>
+	
+	<wsdl:portType name="CalcPortType">
+		<wsdl:operation name="calculateSomething">
+			<wsdl:input name="CalcIn" message="tns:CalcInputMessage"/>
+			<wsdl:output name="CalcOut" message="tns:CalcOutputMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="MultiplyResponsePortType">
+		<wsdl:operation name="multiplyOperation">
+			<wsdl:input name="MultIn" message="calc:MultiplySoapOut"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="CustomCalcSOAPBinding" type="tns:CalcPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="calculateSomething">
+			<soap:operation soapAction="urn:calculateSomething" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:binding name="MultiSOAPBinding" type="tns:MultiplyResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="multiplyOperation">
+			<soap:operation soapAction="urn:multiplyResponseOperation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="CustomCalcService2">
+		<wsdl:port name="CalcPort" binding="tns:CustomCalcSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/CustomCalc2"/>
+		</wsdl:port>
+		<wsdl:port name="MultPort" binding="tns:MultiSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/CustomCalc2Muli"/>
+		</wsdl:port>
+	</wsdl:service>
+
+	<plnk:partnerLinkType name="CalcLinkType">
+		<plnk:role name="CustomCalcExecutorRole" portType="tns:CalcPortType"/>
+	</plnk:partnerLinkType>
+	
+	<plnk:partnerLinkType name="MultiplyLinkType">
+	  <plnk:role name="MultiplierRole" portType="calc:CalculatorSoap" />
+	  <plnk:role name="MultiplierClientRole" portType="tns:MultiplyResponsePortType" />
+	</plnk:partnerLinkType>
+
+</wsdl:definitions>

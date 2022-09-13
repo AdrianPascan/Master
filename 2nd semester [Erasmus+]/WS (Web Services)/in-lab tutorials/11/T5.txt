@@ -1,0 +1,37 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT *
+WHERE
+{
+?s a skos:ConceptScheme ;
+   skos:prefLabel ?label .
+FILTER (?label = "Paragraf")
+}
+
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT *
+WHERE
+{
+?s a skos:ConceptScheme ;
+   skos:prefLabel ?label .
+FILTER (?label = "Paragraf"@cs)
+}
+
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT *
+WHERE
+{
+?s a skos:ConceptScheme ;
+   skos:prefLabel ?label .
+FILTER (STR(?label) = "Paragraf")
+}
+
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT *
+WHERE
+{
+?s a skos:ConceptScheme ;
+   skos:prefLabel "Paragraf" .
+}

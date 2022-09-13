@@ -1,0 +1,9 @@
+PREFIX schema: <http://schema.org/>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+
+SELECT ((AVG (?fine)) AS ?avg) ((MAX (?fine) AS ?max))
+WHERE
+{
+?check a schema:CheckAction ;
+   schema:result/schema:result/gr:hasCurrencyValue ?fine .
+}

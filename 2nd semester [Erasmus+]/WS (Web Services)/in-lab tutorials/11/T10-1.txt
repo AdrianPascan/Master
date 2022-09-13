@@ -1,0 +1,8 @@
+PREFIX schema: <http://schema.org/>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+
+ASK {
+?check a schema:CheckAction ;
+   schema:result/schema:result/gr:hasCurrencyValue ?fine .
+FILTER(?fine > 5000000)
+}

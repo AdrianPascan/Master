@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://tempuri.org/"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+    targetNamespace="http://tempuri.org/">
+   <documentation></documentation>
+   <!-- types (0,1) -->
+   <types>
+    <xs:schema elementFormDefault="qualified"
+                targetNamespace="http://tempuri.org/">
+        <xs:element name="Add">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="intA" type="xs:int"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="intB" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+        <xs:element name="AddResponse">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="AddResult" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    </xs:schema>
+   </types>
+   <!-- messages (0,*) -->
+   <message name="addRequest">
+    <part name="addPart" element="tns:Add">
+    </part>
+   </message>
+   <message name="addResponse">
+    <part name="AddResult" element="tns:AddResult">
+    </part>
+   </message>
+   <!-- port types (0,*) -->
+   <portType name="addPortType">
+        <operation name="addOperation">
+            <input message="tns:addRequest"></input>
+            <output message="tns:addResponse"></output>
+        </operation>
+   </portType>
+   <!-- bindings (0,*) -->
+   <binding name="addBinding" type="tns:addPortType">
+    <wsdlsoap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="addOperation">
+        <wsdlsoap:operation soapAction="http://tempuri.org/Add"/>
+        <input>
+            <wsdlsoap:body use="literal"/>
+        </input>
+        <output>
+            <wsdlsoap:body use="literal"/>
+        </output>
+    </operation>
+   </binding>
+   <!-- services (0,*) -->
+   <service name="CalculatorService">
+    <port binding="tns:addBinding" name="Calculator">
+        <wsdlsoap:address location="http://www.dneonline.com/calculator.asmx"/>
+    </port>
+   </service>
+</definitions>

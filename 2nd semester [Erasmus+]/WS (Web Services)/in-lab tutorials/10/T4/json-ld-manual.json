@@ -1,0 +1,61 @@
+[
+    "@context": [
+        "@base": "https://example.org/iana/media-types/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "media-type": "@id",
+        "type": "@type",
+        "Media type": "http://purl.org/dc/terms/MediaType",
+        "name": "http://purl.org/dc/terms/title",
+        "media-types": "https://example.org/type",
+        "issued": {
+            "@id": "dcterms:issued",
+            "@type": "xsd:date"
+        }
+    ],
+    "media-types": [
+        {
+            "media-type": "MediaType"
+        },
+        {
+            "media-type": "https://example.org/iana/media-types/",
+            "type": "Media type",
+            "title": {
+                "@value": ""
+            }
+        },
+        {
+            "media-type": "https://example.org/iana/media-types/application/1d-interleaved-parityfec",
+            "type": "Media type",
+            "title": {
+                "@value": "application/1d-interleaved-parityfec"
+            }
+        },
+        {
+            "media-type": "https://example.org/iana/media-types/application/3gpdash-qoe-report+xml",
+            "type": "Media type",
+            "issued": {
+                "@value": "2014-04-16",
+                "@type": "http://www.w3.org/2001/XMLSchema#date"
+            },
+            "title": {
+                "@value": "application/3gpdash-qoe-report+xml"
+            }
+        },
+        {
+            "media-type": "https://example.org/iana/media-types/application/3gpp-ims+xml",
+            "type": "Media type",
+            "title": {
+                "@value": "application/3gpp-ims+xml"
+            }
+        },
+        {
+            "media-type": "https://example.org/iana/media-types/application/3gppHal+json",
+            "type": "Media type",
+            "issued": "2021-04-28",
+            "title": {
+                "@value": "application/3gppHal+json"
+            }
+        }
+    ]
+]

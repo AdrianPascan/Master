@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="89950fb5-296f-413b-9dcb-38709743fb1a" activeEnvironment="Default" name="WS5_HW" resourceRoot="" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="120e047f-f504-4bcb-98ce-d5f49ca2798c" wsaVersion="NONE" name="CalculatorImplServiceSoapBinding" type="wsdl" bindingName="{http://ws/}CalculatorImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/WS5_HW/wsdl/calculatorimpl.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/WS5_HW/wsdl/calculatorimpl.wsdl"><con:part><con:url>http://localhost:8080/WS5_HW/wsdl/calculatorimpl.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="CalculatorImplService" targetNamespace="http://ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://ws/" schemaLocation="calculatorimpl_schema1.xsd"/>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="subtract">
+    <wsdl:part name="parameters" element="tns:subtract"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="subtractResponse">
+    <wsdl:part name="parameters" element="tns:subtractResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Calculator">
+    <wsdl:operation name="subtract">
+      <wsdl:input name="subtract" message="tns:subtract"></wsdl:input>
+      <wsdl:output name="subtractResponse" message="tns:subtractResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CalculatorImplServiceSoapBinding" type="tns:Calculator">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="subtract">
+      <soap:operation soapAction="urn:Subtract" style="document"/>
+      <wsdl:input name="subtract">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="subtractResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CalculatorImplService">
+    <wsdl:port name="CalculatorImplPort" binding="tns:CalculatorImplServiceSoapBinding">
+      <soap:address location="http://localhost:8080/WS5_HW/services/CalculatorImplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8080/WS5_HW/wsdl/calculatorimpl_schema1.xsd</con:url><con:content><![CDATA[<xs:schema elementFormDefault="unqualified" targetNamespace="http://ws/" version="1.0" xmlns:tns="http://ws/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="subtract" type="tns:subtract"/>
+  <xs:element name="subtractResponse" type="tns:subtractResponse"/>
+  <xs:complexType name="subtract">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+      <xs:element name="arg1" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="subtractResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/WS5_HW/services/CalculatorImplPort</con:endpoint></con:endpoints><con:operation id="0c0b79ac-b556-452c-a21c-6ee66f1821da" isOneWay="false" action="urn:Subtract" name="subtract" bindingOperationName="subtract" type="Request-Response" outputName="subtractResponse" inputName="subtract" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="83435ce7-a681-48e7-8778-075c78ae6bf1" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/WS5_HW/services/CalculatorImplPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ws:subtract>\r
+         <arg0>1000</arg0>\r
+         <arg1>1</arg1>\r
+      </ws:subtract>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:Subtract"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="UCImplService" targetNamespace="http://default_package/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://default_package/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://default_package/" schemaLocation="ucimpl_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="c2f">
+    <wsdl:part name="parameters" element="tns:c2f">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="c2fResponse">
+    <wsdl:part name="parameters" element="tns:c2fResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UC">
+    <wsdl:operation name="c2f">
+      <wsdl:input name="c2f" message="tns:c2f">
+    </wsdl:input>
+      <wsdl:output name="c2fResponse" message="tns:c2fResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UCImplServiceSoapBinding" type="tns:UC">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="c2f">
+      <soap:operation soapAction="urn:C2f" style="document"/>
+      <wsdl:input name="c2f">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="c2fResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UCImplService">
+    <wsdl:port name="UCImplPort" binding="tns:UCImplServiceSoapBinding">
+      <soap:address location="http://localhost:8080/WS5_T2/services/UCImplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

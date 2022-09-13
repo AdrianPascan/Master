@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="280c2b76-3e82-4689-a6e3-40e3b2e6c29e" activeEnvironment="Default" name="WS7_T1" resourceRoot="" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="a68df145-a731-4392-8de9-90feca65ae21" wsaVersion="NONE" name="CustomCalcSOAPBinding" type="wsdl" bindingName="{http://nswi145/Calc1/wsdl}CustomCalcSOAPBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/ode/processes/CustomCalc1?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/ode/processes/CustomCalc1?wsdl"><con:part><con:url>http://localhost:8080/ode/processes/CustomCalc1?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://nswi145/Calc1/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tnsxsd="http://nswi145/Calc1/xsd" xmlns:tns="http://nswi145/Calc1/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://nswi145/Calc1/xsd">
+      <xsd:element name="calcIn" type="xsd:integer"/>
+      <xsd:element name="calcOut" type="xsd:integer"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CalcInputMessage">
+    <wsdl:part name="parameters" element="tnsxsd:calcIn"/>
+  </wsdl:message>
+  <wsdl:message name="CalcOutputMessage">
+    <wsdl:part name="parameters" element="tnsxsd:calcOut"/>
+  </wsdl:message>
+  <wsdl:portType name="CustomCalc1PortType">
+    <wsdl:operation name="calculateSomething">
+      <wsdl:input message="tns:CalcInputMessage" wsaw:Action="urn:calculateSomething"/>
+      <wsdl:output message="tns:CalcOutputMessage" wsaw:Action="http://nswi145/Calc1/wsdl/CalcPortType/CalcOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CustomCalcSOAPBinding" type="tns:CustomCalc1PortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="calculateSomething">
+      <soap:operation soapAction="urn:calculateSomething" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CustomCalc1">
+    <wsdl:port name="CalcPort" binding="tns:CustomCalcSOAPBinding">
+      <soap:address location="http://localhost:8080/ode/processes/CustomCalc1.CalcPort/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/ode/processes/CustomCalc1.CalcPort/</con:endpoint></con:endpoints><con:operation id="416afb7e-19d8-4267-bc96-bcfb084a27b9" isOneWay="false" action="urn:calculateSomething" name="calculateSomething" bindingOperationName="calculateSomething" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5ab00a46-1c14-4b30-a1e5-679bedbed6d8" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ode/processes/CustomCalc1.CalcPort/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://nswi145/Calc1/xsd">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <xsd:calcIn>Hello world!</xsd:calcIn>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:calculateSomething"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

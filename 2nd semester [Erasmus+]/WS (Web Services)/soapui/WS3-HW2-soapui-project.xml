@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="aa72df7a-eed4-4d71-ae31-4cdeb11851c0" activeEnvironment="Default" name="WS3_HW2" resourceRoot="" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="3260e30e-b8e7-47ff-a0c5-43730e1c9665" wsaVersion="NONE" name="IdPaymentBinding" type="wsdl" bindingName="{http://ws2/}IdPaymentBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/Adrian/OneDrive%20-%20Universitatea%20Babeş-Bolyai/Master/WS/tutorials/3/WS3_HW2.xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\Users\Adrian\OneDrive%20-%20Universitatea%20Babeş-Bolyai\Master\WS\tutorials\3\WS3_HW2.xml"><con:part><con:url>file:\C:\Users\Adrian\OneDrive%20-%20Universitatea%20Babeş-Bolyai\Master\WS\tutorials\3\WS3_HW2.xml</con:url><con:content><![CDATA[<definitions targetNamespace="http://ws2/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws2/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <documentation/>
+  <!--types (0,1)-->
+  <types>
+    <xs:schema targetNamespace="http://ws2/">
+      <xs:element name="payWithId">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="arg0" type="xs:string"/>
+            <xs:element minOccurs="1" maxOccurs="1" name="arg1" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="payWithIdResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="return" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <!--messages (0,*)-->
+  <message name="payWithId">
+    <part element="tns:payWithId" name="payWithIdParams"/>
+  </message>
+  <message name="payWithIdResponse">
+    <part element="tns:payWithIdResponse" name="payWithIdResponseParams"/>
+  </message>
+  <!--port types (0,*)-->
+  <portType name="IdPaymentPortType">
+    <operation name="payWithId">
+      <input message="tns:payWithId"/>
+      <output message="tns:payWithIdResponse"/>
+    </operation>
+  </portType>
+  <!--bindings (0,*)-->
+  <binding name="IdPaymentBinding" type="tns:IdPaymentPortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="payWithId">
+      <input>
+        <wsdlsoap:body use="literal"/>
+      </input>
+      <output>
+        <wsdlsoap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--services (0,*)-->
+  <service name="IdPaymentService">
+    <port binding="tns:IdPaymentBinding" name="IdPaymentPort">
+      <wsdlsoap:address location="http://127.0.0.1:8000/IdPayment"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://127.0.0.1:8000/IdPayment</con:endpoint></con:endpoints><con:operation id="2e0b5730-e652-49ab-97ce-ba84f944d4fb" isOneWay="false" action="" name="payWithId" bindingOperationName="payWithId" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f126276d-01f0-4837-a526-bf1ca09f0412" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8000/IdPayment</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws2="http://ws2/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ws2:payWithId>\r
+         <arg0>?</arg0>\r
+         <arg1>?</arg1>\r
+      </ws2:payWithId>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws2/IdPaymentPortType/payWithIdRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<process name="CustomCalculator"
+    targetNamespace="http://nswi145/Calc1/bpel" 
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:tns="http://nswi145/Calc1/bpel"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tnswsdl="http://nswi145/Calc1/wsdl"
+    xmlns:tnsxsd="http://nswi145/Calc1/xsd"
+    queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"
+    expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0">
+
+  <import location="CalcProcess.wsdl"
+      namespace="http://nswi145/Calc1/wsdl"
+      importType="http://schemas.xmlsoap.org/wsdl/" />
+  
+  <partnerLinks>
+    <partnerLink name="CalculatorPartnerLink" 
+        partnerLinkType="tnswsdl:CalcLinkType" 
+        myRole="CustomCalcExecutorRole" />
+  </partnerLinks>
+  
+  <variables>
+    <variable name="inputs" messageType="tnswsdl:CalcInputMessage" />
+    <variable name="outputs" messageType="tnswsdl:CalcOutputMessage" />
+  </variables>
+  
+  <sequence>
+  
+    <receive
+        name="ReceiveCalcInputs"
+        partnerLink="CalculatorPartnerLink"
+        portType="tnswsdl:CalcPortType"
+        operation="calculateSomething"
+        variable="inputs"
+        createInstance="yes" />
+    
+    <assign name="CopyAssign">
+      <copy>
+        <from variable="inputs" part="parameters" />
+        <to variable="outputs" part="parameters" />
+      </copy>
+    </assign>
+    
+    <reply name="ReplyCalcOutputs"  
+        partnerLink="CalculatorPartnerLink"
+        portType="tnswsdl:CalcPortType" 
+        operation="calculateSomething"
+        variable="outputs" />
+    
+  </sequence>
+  
+</process>

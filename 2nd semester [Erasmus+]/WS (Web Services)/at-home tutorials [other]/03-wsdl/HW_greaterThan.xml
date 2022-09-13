@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://ws/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+    targetNamespace="http://ws/" 
+    name="CalculatorImplService">
+    <types>
+        <xsd:schema targetNamespace="http://ws/">
+            <xsd:element name="subtract" type="tns:subtract"/>
+            <xsd:element name="subtractResponse" type="tns:subtractResponse"/>
+            <xsd:complexType name="subtract">
+                <xsd:sequence>
+                    <xsd:element name="arg0" type="xsd:int"/>
+                    <xsd:element name="arg1" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="subtractResponse">
+                <xsd:sequence>
+                    <xsd:element name="return" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="subtract">
+        <part name="parameters" element="tns:subtract"/>
+    </message>
+    <message name="subtractResponse">
+        <part name="parameters" element="tns:subtractResponse"/>
+    </message>
+    <portType name="Calculator">
+        <operation name="subtract">
+            <!-- <input wsam:Action="http://ws/Calculator/subtractRequest" message="tns:subtract"/>
+            <output wsam:Action="http://ws/Calculator/subtractResponse" message="tns:subtractResponse"/> -->
+            <input message="tns:subtract"/>
+            <output message="tns:subtractResponse"/>
+        </operation>
+    </portType>
+    <binding name="CalculatorImplPortBinding" type="tns:Calculator">
+        <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="subtract">
+            <wsdlsoap:operation soapAction=""/>
+            <input>
+                <wsdlsoap:body use="literal"/>
+            </input>
+            <output>
+                <wsdlsoap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="CalculatorImplService">
+        <port name="CalculatorImplPort" binding="tns:CalculatorImplPortBinding">
+            <wsdlsoap:address location="http://127.0.0.1:8000/Calculator"/>
+        </port>
+    </service>
+</definitions>

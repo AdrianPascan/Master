@@ -1,0 +1,13 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix phone: <https://ogp.me/ns#> .
+@prefix phone2: <http://ontology.eil.utoronto.ca/icontact.owl#> .
+
+<https://www.linkedin.com/in/adrian-pascan/> rdf:type schema:Person ;
+    schema:givenName "Adrian" ;
+    schema:familyName "Pascan" ;
+    schema:affiliation <http://www.cs.ubbcluj.ro/> ;
+    phone:phone_number "+40745123456" ;
+    phone2:PhoneNumber "+40745123456" .
+
+<http://www.cs.ubbcluj.ro/> rdf:type schema:Organization .

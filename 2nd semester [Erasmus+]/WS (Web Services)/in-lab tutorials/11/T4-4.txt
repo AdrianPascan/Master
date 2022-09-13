@@ -1,0 +1,7 @@
+SELECT ?g COUNT (?s)
+WHERE
+{
+    GRAPH ?g {?s ?p ?o}
+}
+GROUP BY ?g
+ORDER BY DESC(COUNT(?s))

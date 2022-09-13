@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://ws2/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    targetNamespace="http://ws2/" 
+    name="IdPaymentImplService">
+    <types>
+        <xsd:schema version="1.0" targetNamespace="http://ws2/">
+            <xsd:element name="payWithId" type="tns:payWithId"/>
+            <xsd:element name="payWithIdResponse" type="tns:payWithIdResponse"/>
+            <xsd:complexType name="payWithId">
+                <xsd:sequence>
+                    <xsd:element name="arg0" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="arg1" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="payWithIdResponse">
+                <xsd:sequence>
+                    <xsd:element name="return" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="payWithId">
+        <part name="parameters" element="tns:payWithId"/>
+    </message>
+    <message name="payWithIdResponse">
+        <part name="parameters" element="tns:payWithIdResponse"/>
+    </message>
+    <portType name="IdPayment">
+        <operation name="payWithId">
+            <input message="tns:payWithId"/>
+            <output message="tns:payWithIdResponse"/>
+        </operation>
+    </portType>
+    <binding name="IdPaymentImplPortBinding" type="tns:IdPayment">
+        <soap:binding style="document"/>
+        <operation name="payWithId">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="IdPaymentImplService">
+        <port name="IdPaymentImplPort" binding="tns:IdPaymentImplPortBinding">
+            <soap:address location="http://127.0.0.1:8000/IdPayment"/>
+        </port>
+    </service>
+</definitions>

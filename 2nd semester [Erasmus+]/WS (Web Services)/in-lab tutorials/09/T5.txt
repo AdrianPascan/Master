@@ -1,0 +1,9 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <http://schema.org/> .
+
+<https://www.linkedin.com/in/adrian-pascan/> rdf:type schema:Person ;
+    schema:givenName "Adrian" ;
+    schema:familyName "Pascan" ;
+    schema:affiliation <http://www.cs.ubbcluj.ro/> .
+
+<http://www.cs.ubbcluj.ro/> rdf:type schema:Organization .

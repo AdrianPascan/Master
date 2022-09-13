@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="15e9f9e1-7c2d-4966-9913-c2c9d31567f2" activeEnvironment="Default" name="WS5_T2" resourceRoot="" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="cf2fa5fd-5685-4446-82bf-ba19f4effd34" wsaVersion="NONE" name="UCImplServiceSoapBinding" type="wsdl" bindingName="{http://default_package/}UCImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://127.0.0.1:8080/WS5_T2/wsdl/ucimpl.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://127.0.0.1:8080/WS5_T2/wsdl/ucimpl.wsdl"><con:part><con:url>http://127.0.0.1:8080/WS5_T2/wsdl/ucimpl.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="UCImplService" targetNamespace="http://default_package/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://default_package/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://default_package/" schemaLocation="ucimpl_schema1.xsd"/>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="c2f">
+    <wsdl:part name="parameters" element="tns:c2f"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="c2fResponse">
+    <wsdl:part name="parameters" element="tns:c2fResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UC">
+    <wsdl:operation name="c2f">
+      <wsdl:input name="c2f" message="tns:c2f"></wsdl:input>
+      <wsdl:output name="c2fResponse" message="tns:c2fResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UCImplServiceSoapBinding" type="tns:UC">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="c2f">
+      <soap:operation soapAction="urn:C2f" style="document"/>
+      <wsdl:input name="c2f">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="c2fResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UCImplService">
+    <wsdl:port name="UCImplPort" binding="tns:UCImplServiceSoapBinding">
+      <soap:address location="http://localhost:8080/WS5_T2/services/UCImplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://127.0.0.1:8080/WS5_T2/wsdl/ucimpl_schema1.xsd</con:url><con:content><![CDATA[<xs:schema elementFormDefault="unqualified" targetNamespace="http://default_package/" version="1.0" xmlns:tns="http://default_package/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="c2f" type="tns:c2f"/>
+  <xs:element name="c2fResponse" type="tns:c2fResponse"/>
+  <xs:complexType name="c2f">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="c2fResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/WS5_T2/services/UCImplPort</con:endpoint></con:endpoints><con:operation id="5fbb2c82-81b6-43c2-8a0d-a4e6dea72e78" isOneWay="false" action="urn:C2f" name="c2f" bindingOperationName="c2f" type="Request-Response" outputName="c2fResponse" inputName="c2f" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="9212e1bd-40fc-4ea6-90ee-3b79f2f2052a" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/WS5_T2/services/UCImplPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:def="http://default_package/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <def:c2f>
+         <arg0>0</arg0>
+      </def:c2f>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:C2f"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
