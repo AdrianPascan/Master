@@ -13,4 +13,4 @@
 
 ### Personal favourites
 
--   [*Middleware (MW)*](https://github.com/adrianPascan/Master/tree/main/2nd%20semester%20%5BErasmus%2B%5D/Middleware), 2nd semester
+-   [*Middleware (MW)*](https://github.com/AdrianPascan/Master/tree/main/2nd%20semester%20%5BErasmus%2B%5D/Middleware), 2nd semester
