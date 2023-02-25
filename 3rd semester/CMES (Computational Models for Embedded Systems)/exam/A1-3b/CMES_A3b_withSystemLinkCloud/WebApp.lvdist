@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SourceFile Checksum="C4D0A5A51D8FC5FD0C046A5555665FCAE459390F6F0974DB0437E1C64D032B0CB58CBA1A589BB305E481E8F711D2B7164B7E962370CBDD8CE2F43BCC70EA7FBB" Timestamp="1D934B9ABA962AE" xmlns="http://www.ni.com/PlatformFramework">
+	<SourceModelFeatureSet>
+		<ParsableNamespace AssemblyFileVersion="9.1.0.50238" FeatureSetName="GComponentFeatureSet" Name="http://www.ni.com/GComponent.xsd" OldestCompatibleVersion="9.0.0.0" Version="9.0.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.1.0.50238" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ApplicationVersionInfo Build="9.1.0.50238" Name="G Web Development Software" Version="21.0.0" />
+	</SourceModelFeatureSet>
+	<DistributionDefinition Product="WebApp" ShortDescription="CMES_A3" TargetedProduct="LabVIEW" Version="1.0.0.2" xmlns="http://www.ni.com/GComponent.xsd">
+		<DistributionOutput CachedDisplayName="Package" Id="e7d4e96577904aa59ed827ba16e2ee34" OutputTypeIdentifier="DistributionOutputType:NiPackage" p3:CustomNipmPackageName="cmesa3" p3:DistributionCategory="Application" p3:MaintainerEmail="adrian.pascan@stud.ubbcluj.ro" p3:MaintainerName="Adrian" p3:PackageDisplayName="WebApp" xmlns:p3="http://www.ni.com/GComponent.xsd" />
+		<DistributionBuildTarget Id="87631c93fc1c4b1ca598eb566d97a36c" Target="::VireoDevSystem" />
+		<DistributionMemberDependencySource Id="c9d9e04d962b46479211e5c8d14d5111" MemberContentType="{http://www.ni.com/GComponent.xsd}Component_Rebuild" RelativeLocation="&quot;Web Server\\htdocs\\WebApp&quot;" RootLocation="NISharedDirectory64" Target="::VireoDevSystem::Interactive::WebApp.gcomp" />
+		<DistributionDependencyContent DisplayName="NI Web Server" Id="c83766cdf53140778b5c7eaba6b1b7a3" Included="False" MaintainerName="National Instruments" Name="ni-webserver" Version="21.1.0.49152-0+f0" />
+	</DistributionDefinition>
+</SourceFile>
